@@ -13,9 +13,5 @@ This repository is for our group project in the course IS-213, **_Open Source_**
 
 _In order to get this working, you'll need to do the following on the host computer:_
 ```sh
-npm install -g sails --save
-npm install grumpy --save
-npm install material-design-lite --save
-npm install material-design-icons --save
-npm install sails-mysql --save
+npm install
 ```
