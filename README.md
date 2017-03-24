@@ -1,5 +1,5 @@
 =======
-# [BrewSource | Frontend] (http://brewsource.no) - :sailboat:Sails.js
+# [BrewSource | Frontend](http://brewsource.no) - :sailboat:Sails.js
 Website branch for the frontend of BrewSource
 
 BrewSource, a Raspberry Pi-powered monitor for your brewing :beers:. Written in :snake:Python and :sailboat:Sails.js
@@ -9,7 +9,7 @@ BrewSource, a Raspberry Pi-powered monitor for your brewing :beers:. Written in 
 This repository is for our group project in the course IS-213, **_Open Source_**
 
 - Developed in Sails.js
-- With some [Material Design from Google] (https://www.getmdl.io)
+- With some [Material Design from Google](https://www.getmdl.io)
 
 _In order to get this working, you'll need to do the following on the host computer:_
 ```sh
