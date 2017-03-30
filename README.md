@@ -1,4 +1,3 @@
-=======
 # [BrewSource | Frontend](http://brewsource.no) - :sailboat:Sails.js
 Website branch for the frontend of BrewSource
 
