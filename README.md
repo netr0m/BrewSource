@@ -1,7 +1,6 @@
-=======
 # [BrewSource](http://brewsource.no) - :sailboat:Sails.js for frontend, :snake:Python for backend
 
-BrewSource, a Raspberry Pi-powered monitor for your brewing :beers:. Written in :snake:Python and :sailboat:Sails.js
+BrewSource, a Raspberry Pi-powered monitor for your fermentation :beers:. Written in :snake:Python and :sailboat:Sails.js
 
 **Developed by:** Morten Amundsen.py, Svenn-Roger Sørensen.js
 
