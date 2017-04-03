@@ -1,0 +1,73 @@
+<center>
+  <style>
+    .demo-card-wide.mdl-card {
+      width: 512px;
+    }
+
+    .demo-card-wide > .mdl-card__title {
+      color: #FFFFFF;
+      height: 176px;
+      background: url('http://washingtonbeer.com/cms_images/bg-HeadersWorking_500-01.jpg') center / cover;
+    }
+
+    .demo-card-wide > .mdl-card__menu {
+      color: #000000;
+    }
+  </style>
+  <br/>
+  <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text"><%= user.name %></h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+      <b>Email:</b> <%= user.email %><br>
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+      <a id="editor" href="/user/edit/<%= user.id %>"
+         class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        Edit
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--large" for="editor">
+        Edit the user info
+      </div>
+      <div class="mdl-layout-spacer"></div>
+      <a id="back" href="" onclick="goBack()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">navigate_before</i>
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--large" for="back">
+        Go back to the previous page
+      </div>
+
+      <script>
+        function goBack() {
+          window.history.back();
+        }
+      </script>
+    </div>
+    <div class="mdl-card__menu">
+      <a id="edit" href="/user/edit/<%= user.id %>">
+        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+          <i class="material-icons">mode_edit</i>
+        </button>
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--large" for="edit">
+        Edit the user info
+      </div>
+    </div>
+  </div>
+  <hr>
+  <h4 class="logo-font sub-slogan amber-text text-darken-3">your breweries</h4>
+  <div class="breweries-container">
+    <div class="collection">
+      <% _.each(user.breweries, function(brewery) { %>
+      <a href="/brewery/show/<%= brewery.id %>" class="collection-item"><%= brewery.name %></a>
+      <% }); %>
+    </div>
+    <form action="/brewery/new" method="POST">
+      <input type="hidden" value="<%= user.id %>" name="owner">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">
+        Create a new Brewery
+      </button>
+    </form>
+  </div>
+</center>
