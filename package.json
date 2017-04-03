@@ -19,6 +19,7 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
+    "jquery": "^3.2.1",
     "rc": "1.0.1",
     "sails": "~0.12.11",
     "sails-disk": "~0.10.9",
@@ -31,8 +32,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/anonymous node/sails user/Brewsource.git"
+    "url": "git://github.com/mortea15/Brewsource.git"
   },
   "author": "anonymous node/sails user",
-  "license": ""
+  "license": "GPL-3.0"
 }
