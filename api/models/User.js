@@ -11,17 +11,24 @@ module.exports = {
 
     email: {
     type: 'email',
-    required: true
+    email: true,
+    unique: true
     },
 
     password: {
     type: 'string',
     required: true
+    },
+
+    name: {
+      type: 'string',
+      required: true
+    },
+
+    breweries: {
+      collection: 'brewery',
+      via: 'owner'
     }
   }
-
-
-
-
 };
 
