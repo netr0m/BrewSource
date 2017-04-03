@@ -1,0 +1,40 @@
+.centralized {
+  margin: 0 auto;
+}
+
+.centralized-text {
+  text-align: center;
+}
+
+.footer-stay-down-m8 {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.logo-font {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+/*
+Title
+ */
+.slogan {
+  font-size: 55px;
+  padding-top: 0px;
+}
+
+/*
+Subtitle
+ */
+.sub-slogan {
+  font-size: 20px;
+  padding-top: -50px;
+}
+
+.breweries-container {
+  width: 500px;
+  margin: 0 auto;
+}
