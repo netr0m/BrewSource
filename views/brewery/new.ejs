@@ -1,0 +1,42 @@
+<center>
+  <form action="/brewery/create" method="POST">
+    <h1 class="logo-font slogan amber-text text-darken-3">create a new brewery for <%= user.name %></h1>
+
+    <input type="hidden" name="owner" value="<%- user.id %>"/>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" type="text" name="name" id="name">
+      <label class="mdl-textfield__label" for="name">Name of Brewery..</label>
+    </div>
+    <br/>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" type="text" name="location" id="location">
+      <label class="mdl-textfield__label" for="location">Location..</label>
+    </div>
+    <br/>
+
+    <button id="createBrewery" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">
+      create brewery
+    </button>
+    <div class="mdl-tooltip mdl-tooltip--large" for="createBrewery">
+      Add the new stock to the customers portfolio
+    </div>
+    <br/>
+    <br/>
+
+    <a id="back" href="" onclick="goBack()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      <i class="material-icons">navigate_before</i>
+    </a>
+    <div class="mdl-tooltip mdl-tooltip--large" for="back">
+      Go back to the previous page
+    </div>
+
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+    </div>
+  </form>
+</center>
