@@ -1,5 +1,6 @@
 <center>
   <form action="/user/update/<%= user.id %>" method="POST">
+    <input type="hidden" name="password" value="<%- user.password %>"/>
     <h2 class="logo-font slogan amber-text text-darken-3">edit <%= user.name %></h2>
 
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -13,9 +14,20 @@
       <label class="mdl-textfield__label" for="email">Email..</label>
     </div>
     <br/>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">Save
+    </button>
+  </form>
+  <br>
+  <hr>
+  <h2 class="logo-font sub-slogan grey-text">change password</h2>
+
+  <form action="/user/update/<%= user.id %>" method="POST" onsubmit="return checkMatchingPasswords()">
+
+    <input type="hidden" name="name" value="<%- user.name %>"/>
+    <input type="hidden" name="email" value="<%- user.email %>"/>
 
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <input class="mdl-textfield__input" value="<%= user.password %>" type="password" name="password" id="password">
+      <input class="mdl-textfield__input" value="" type="password" name="password" id="password">
       <label class="mdl-textfield__label" for="password">Password..</label>
     </div>
     <br/>
@@ -26,11 +38,10 @@
       <label class="mdl-textfield__label" for="passwordConfirmation">Confirm Password..</label>
     </div>
     <br/>
-
-    <button onClick="checkMatchingPasswords()"
-            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">Save
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">Save
     </button>
   </form>
+  <hr>
   <br>
 
   <a onClick="return confirmDelete()" href="/user/destroy/<%= user.id %>">
@@ -45,10 +56,16 @@
 
   <script>
     function checkMatchingPasswords() {
-      if (document.getElementById('password').value == document.getElementById('passwordConfirmation').value) {
+      var passwordField = document.getElementById('password').value;
+      var passwordConfirmationField = document.getElementById('passwordConfirmation').value;
+      if (passwordField == passwordConfirmationField && passwordField != '' && passwordConfirmationField != '') {
         return true;
       } else {
-        if (document.getElementById('password').value != document.getElementById('passwordConfirmation').value && document.getElementById('passwordConfirmation').value == '') {
+        if (passwordField == '' || passwordConfirmationField == '') {
+          alert("Error: One or both of the fields are empty.")
+          return false;
+        } else {
+          alert("Error: The passwords do not match")
           return false;
         }
       }
