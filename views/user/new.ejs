@@ -1,5 +1,5 @@
 <center>
-  <form action="/user/create" method="POST" >
+  <form action="/user/create" method="POST" onsubmit="return checkMatchingPasswords()">
     <h2 class="logo-font slogan amber-text text-darken-3">create an account</h2>
 
 
@@ -15,6 +15,12 @@
       <input class="mdl-textfield__input" type="password" name="password" id="password">
       <label class="mdl-textfield__label" for="password">Password..</label>
     </div><br />
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" value="" type="password" name="passwordConfirmation"
+             id="passwordConfirmation">
+      <label class="mdl-textfield__label" for="passwordConfirmation">Confirm Password..</label>
+    </div>
+    <br/>
     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">Sign Up</button>
   </form>
   <br>
@@ -25,6 +31,23 @@
     Go back to the previous page
   </div>
 
+  <script>
+    function checkMatchingPasswords() {
+      var passwordField = document.getElementById('password').value;
+      var passwordConfirmationField = document.getElementById('passwordConfirmation').value;
+      if (passwordField == passwordConfirmationField && passwordField != '' && passwordConfirmationField != '') {
+        return true;
+      } else {
+        if (passwordField == '' || passwordConfirmationField == '') {
+          alert("Error: One or both of the fields are empty.")
+          return false;
+        } else {
+          alert("Error: The passwords do not match")
+          return false;
+        }
+      }
+    }
+  </script>
   <script>
     function goBack() {
       window.history.back();
