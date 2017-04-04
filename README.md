@@ -88,5 +88,5 @@ We're open for adding new features, please keep in mind that it should be of rel
 
 ## Contributors
 **Developed by:**
-- Morten Amundsen.py
-- Svenn-Roger Sørensen.js
+- [Morten Amundsen.py](https://github.com/mortea15/)
+- [Svenn-Roger Sørensen.js](https://github.com/tjodalv2k)
