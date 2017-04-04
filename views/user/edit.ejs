@@ -1,0 +1,77 @@
+<center>
+  <form action="/user/update/<%= user.id %>" method="POST">
+    <h2 class="logo-font slogan amber-text text-darken-3">edit <%= user.name %></h2>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" value="<%= user.name %>" type="text" name="name" id="name">
+      <label class="mdl-textfield__label" for="name">Name..</label>
+    </div>
+    <br/>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" value="<%= user.email %>" type="email" name="email" id="email">
+      <label class="mdl-textfield__label" for="email">Email..</label>
+    </div>
+    <br/>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" value="<%= user.password %>" type="password" name="password" id="password">
+      <label class="mdl-textfield__label" for="password">Password..</label>
+    </div>
+    <br/>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" value="" type="password" name="passwordConfirmation"
+             id="passwordConfirmation">
+      <label class="mdl-textfield__label" for="passwordConfirmation">Confirm Password..</label>
+    </div>
+    <br/>
+
+    <button onClick="checkMatchingPasswords()"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">Save
+    </button>
+  </form>
+  <br>
+
+  <a onClick="return confirmDelete()" href="/user/destroy/<%= user.id %>">
+    <button id="deleteUser"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">
+      Delete Account
+    </button>
+  </a>
+  <div class="mdl-tooltip mdl-tooltip--large" for="deleteUser">
+    Delete your account
+  </div>
+
+  <script>
+    function checkMatchingPasswords() {
+      if (document.getElementById('password').value == document.getElementById('passwordConfirmation').value) {
+        return true;
+      } else {
+        if (document.getElementById('password').value != document.getElementById('passwordConfirmation').value && document.getElementById('passwordConfirmation').value == '') {
+          return false;
+        }
+      }
+    }
+  </script>
+  <script>
+    function confirmDelete() {
+      return confirm('Are you sure you want to delete your account?');
+    }
+  </script>
+  <br>
+
+  <br>
+  <a id="back" href="" onclick="goBack()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+    <i class="material-icons">navigate_before</i>
+  </a>
+  <div class="mdl-tooltip mdl-tooltip--large" for="back">
+    Go back to the previous page
+  </div>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</center>
