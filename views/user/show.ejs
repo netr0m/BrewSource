@@ -1,21 +1,6 @@
-<center>
-  <style>
-    .demo-card-wide.mdl-card {
-      width: 512px;
-    }
-
-    .demo-card-wide > .mdl-card__title {
-      color: #FFFFFF;
-      height: 176px;
-      background: url('http://washingtonbeer.com/cms_images/bg-HeadersWorking_500-01.jpg') center / cover;
-    }
-
-    .demo-card-wide > .mdl-card__menu {
-      color: #000000;
-    }
-  </style>
-  <br/>
-  <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+<br/>
+<div class="centralized-text">
+  <div class="demo-card-wide mdl-card mdl-shadow--2dp card-mobile centralized">
     <div class="mdl-card__title">
       <h2 class="mdl-card__title-text"><%= user.name %></h2>
     </div>
@@ -60,9 +45,10 @@
   <div class="breweries-container">
     <div class="collection">
       <% _.each(user.breweries, function(brewery) { %>
-      <a href="/brewery/show/<%= brewery.id %>" class="collection-item"><%= brewery.name %></a>
+      <a href="/brewery/show/<%= brewery.id %>" class="collection-item z-depth-5"><%= brewery.name %></a>
       <% }); %>
     </div>
+    <br>
     <form action="/brewery/new" method="POST">
       <input type="hidden" value="<%= user.id %>" name="owner">
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">
@@ -70,4 +56,4 @@
       </button>
     </form>
   </div>
-</center>
+</div>
