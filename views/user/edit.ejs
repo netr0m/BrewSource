@@ -1,7 +1,7 @@
 <center>
   <form action="/user/update/<%= user.id %>" method="POST">
     <input type="hidden" name="password" value="<%- user.password %>"/>
-    <h2 class="logo-font slogan amber-text text-darken-3">edit <%= user.name %></h2>
+    <h2 class="logo-font slogan amber-text text-darken-3">edit profile</h2>
 
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <input class="mdl-textfield__input" value="<%= user.name %>" type="text" name="name" id="name">
