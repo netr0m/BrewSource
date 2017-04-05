@@ -35,6 +35,39 @@ Subtitle
 }
 
 .breweries-container {
-  width: 500px;
+  width: 200px;
   margin: 0 auto;
+}
+
+@media screen and (max-width: 650px) {
+  .footer {
+    visibility: hidden;
+    display: none;
+  }
+}
+
+.demo-card-wide.mdl-card {
+  width: 512px;
+}
+
+@media screen and (max-width: 320px) {
+  .demo-card-wide.mdl-card {
+    width: 256px;
+  }
+}
+
+@media screen and (min-width: 321px) and (max-width: 650px) {
+  .demo-card-wide.mdl-card {
+    width: 320px;
+  }
+}
+
+.demo-card-wide > .mdl-card__title {
+  color: #FFFFFF;
+  height: 176px;
+  background: url('http://washingtonbeer.com/cms_images/bg-HeadersWorking_500-01.jpg') center / cover;
+}
+
+.demo-card-wide > .mdl-card__menu {
+  color: #000000;
 }
