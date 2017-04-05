@@ -78,7 +78,6 @@ We appreciate feedback of any sort, and it helps us in developing a great servic
 We're open for adding new features, please keep in mind that it should be of relevance to this project.
 - Including details when submitting feature requests is essential. It makes it easier for the developers to understand the request.
 
-<br>
 ### Pull requests 
 - Please include documentation on all code submitted
 - If a new feature is implemented, it should be explained with detail in the [Wiki](https://github.com/mortea15/BrewSource/wiki)
