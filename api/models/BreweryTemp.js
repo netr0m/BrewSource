@@ -14,10 +14,10 @@ module.exports = {
       required: true
     },
 
-    breweryID: {
+    owner: {
       model: 'brewery',
       required: true
-    }
+    },
   }
 };
 
