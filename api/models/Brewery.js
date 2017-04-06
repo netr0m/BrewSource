@@ -24,8 +24,8 @@ module.exports = {
     },
 
     temperatures: {
-      collection: 'breweryTemp',
-      via: 'breweryID'
+      collection: 'brewerytemp',
+      via: 'owner'
     }
 
   }
