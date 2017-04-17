@@ -22,6 +22,16 @@
 
 module.exports.routes = {
 
+  // HTML Views
+  '/': { view: 'homepage' },
+  'get /login': { view: 'user/login' },
+  'get /signup': { view: 'user/signup' },
+
+  // Endpoints
+  'post /login': 'UserController.login',
+  'post /signup': 'UserController.signup',
+  '/logout': 'UserController.logout'
+
   /***************************************************************************
   *                                                                          *
   * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
@@ -32,10 +42,10 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
+  /*'/': {
     view: 'static/home'
   }
-
+  */
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
