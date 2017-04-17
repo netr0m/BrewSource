@@ -53,20 +53,33 @@
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-        <a class="mdl-navigation__link" href="">Sign In</a>
-        <a class="mdl-navigation__link" href="/user/new">Register</a>
+        <% if (req.session.me) { %>
+        <a class="mdl-navigation__link" href="/user/show/3">Profile</a>
+        <a class="mdl-navigation__link" href="/">Home</a>
+        <a class="mdl-navigation__link" href="/logout">Log Out</a>
+        <% } else { %>
+        <a class="mdl-navigation__link" href="/login">Sign In</a>
+        <a class="mdl-navigation__link" href="/signup">Sign Up</a>
         <a class="mdl-navigation__link" href="">About Us</a>
         <a class="mdl-navigation__link" href="/">Home</a>
+        <% } %>
       </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">BrewSource Inc</span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="">Sign In</a>
-      <a class="mdl-navigation__link" href="/user/new">Register</a>
+      <% if (req.session.me) { %>
+      <a class="mdl-navigation__link" href="/user/show/3">Profile</a>
       <a class="mdl-navigation__link" href="">About Us</a>
       <a class="mdl-navigation__link" href="/">Home</a>
+      <a class="mdl-navigation__link" href="/logout">Log Out</a>
+      <% } else { %>
+      <a class="mdl-navigation__link" href="/login">Sign In</a>
+      <a class="mdl-navigation__link" href="/signup">Sign Up</a>
+      <a class="mdl-navigation__link" href="">About Us</a>
+      <a class="mdl-navigation__link" href="/">Home</a>
+      <% } %>
     </nav>
   </div>
   <main class="mdl-layout__content">
