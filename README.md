@@ -2,9 +2,6 @@
 
 BrewSource is an open source, Raspberry Pi-powered monitor for your beer fermentation :beers:. Written in :snake:Python and :sailboat:Sails.js. We'd love help of any kind, whether you'd like to contribute by submitting a bug, or have a request for a feature. You can also contribute with development, but please read the guidelines on [Contribution](#contribution) before you begin.
 
-- The frontend can be found over at the [_Sails_ branch](https://github.com/mortea15/BrewSource/tree/sails)
-- The backend is on the [_Python_ branch](https://github.com/mortea15/BrewSource/tree/python)
-
 ## Table of contents
 - [Getting Started](#getting-started)
 - [Documentation](#documentation)
