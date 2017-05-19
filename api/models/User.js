@@ -1,74 +1,63 @@
 /**
  * User.js
  *
- * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @description :: Each record in this model represents a user's account in BrewSource.
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 
 module.exports = {
 
   attributes: {
-    email: {
-      type: 'email',
-      required: true
-    },
-    password: {
-      type: 'string',
-      required: true
-    },
+
+    // The user's full name
     name: {
       type: 'string',
       required: true
     },
 
+    // The user's email address
+    email: {
+      type: 'string',
+      email: true,
+      required: true,
+      unique: true
+    },
+
+    // The encrypted password for the user
+    encryptedPassword: {
+      type: 'string'
+    },
+
+    // The timestamp of when the user was last "active"
+    // (Whether they are online or not)
+    lastActive: {
+      type: 'date',
+      required: true,
+      defaultsTo: new Date(0)
+    },
+
+    // The timestamp of the last login
+    lastLoggedIn: {
+      type: 'date',
+      required: true,
+      defaultsTo: new Date(0)
+    },
+
+    // Whether the user is an admin or not
+    admin: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+
+    // Gravatar URL
+    gravatarUrl: {
+      type: 'string'
+    },
+
+    // The breweries associated with this user
     breweries: {
       collection: 'brewery',
       via: 'owner'
     }
-  },
-
-
-  /**
-   * Create a new user using the provided inputs,
-   * but encrypt the password first.
-   *
-   * @param  {Object}   inputs
-   *                     • name     {String}
-   *                     • email    {String}
-   *                     • password {String}
-   * @param  {Function} cb
-   */
-
-  signup: function (inputs, cb) {
-    // Create a user
-    User.create({
-      name: inputs.name,
-      email: inputs.email,
-      // TODO: But encrypt the password first
-      password: inputs.password
-    })
-      .exec(cb);
-  },
-
-
-
-  /**
-   * Check validity of a login using the provided inputs.
-   * But encrypt the password first.
-   *
-   * @param  {Object}   inputs
-   *                     • email    {String}
-   *                     • password {String}
-   * @param  {Function} cb
-   */
-
-  attemptLogin: function (inputs, cb) {
-    // Create a user
-    User.findOne({
-      email: inputs.email,
-      // TODO: But encrypt the password first
-      password: inputs.password
-    })
-      .exec(cb);
   }
 };
