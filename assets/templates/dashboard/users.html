@@ -1,0 +1,107 @@
+<div class="main-container centralized-text">
+
+  <h1 class="logo-font slogan amber-text text-darken-3 centralized-text">users</h1>
+
+  <!-- Error state -->
+  <div ng-show="userList.errorMsg">
+    <h5>Oops!</h5>
+    <p>Looks like an error occurred.  Please try again later.</p>
+    <code>
+      {{userList.errorMsg}}
+    </code>
+  </div>
+
+  <!-- Loading state -->
+  <div ng-show="userList.loading">
+    <span class="overlord-loading-spinner fa fa-spinner"></span>
+    <span>Loading users...</span>
+  </div>
+
+  <!-- Empty state -->
+  <div ng-show="userList.contents.length === 0">
+    <!--
+    Note that this empty state will never actually matter because there
+    will always be at least one user (the currently-logged-in admin).
+    -->
+    <span>No users yet.</span>
+  </div>
+
+  <!-- Table -->
+  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp centralized-text"
+         ng-show="!userList.loading && userList.contents.length > 0">
+
+    <!-- Table header -->
+    <thead>
+    <tr>
+      <th class="mdl-data-table__cell--non-numeric">Online</th>
+      <th class="mdl-data-table__cell--non-numeric">ID</th>
+      <th class="mdl-data-table__cell--non-numeric">Name</th>
+      <th class="mdl-data-table__cell--non-numeric">Email</th>
+      <th class="mdl-data-table__cell--non-numeric">Type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <!-- End of table header -->
+
+    <!-- Table body -->
+    <tbody>
+    <!-- Repeat for every user in the list -->
+    <tr ng-repeat="user in userList.contents">
+
+      <!-- Table body -->
+      <!-- Last time user was logged in / if they're online -->
+      <td class="mdl-data-table__cell--non-numeric">
+        <!-- User is active, display green dot -->
+        <span ng-show="user.isActive" style="background: rgb(66, 183, 42); border-radius: 50%;
+        display: inline-block; height: 10px; margin-left: 5px; width: 10px;"></span>
+
+        <!-- User not active, display time since last login -->
+        <span ng-show="!user.isActive">{{user.lastLoggedIn | timeAgo}}</span>
+      </td>
+
+      <!-- User's ID -->
+      <td class="mdl-data-table__cell--non-numeric"> {{user.id}} </td>
+      <!-- User's name -->
+      <td class="mdl-data-table__cell--non-numeric"> {{user.name}} </td>
+      <!-- User's email -->
+      <td class="mdl-data-table__cell--non-numeric"> {{user.email}} </td>
+
+      <!-- Type of account (admin or regular user) -->
+      <td class="mdl-data-table__cell--non-numeric">
+        <i class="material-icons" ng-show="user.admin">supervisor_account</i>
+        <i class="material-icons" ng-show="!user.admin">account_box</i>
+      </td>
+
+      <!-- Show button -->
+      <td>
+        <a href="#/users/{{user.id}}" class="btn mdl-button mdl-js-button
+        mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">Show</a>
+      </td>
+
+      <!-- Edit button -->
+      <td>
+        <!-- Don't show edit button if this user is YOU (the visitor) -->
+        <a ng-hide="me.id == user.id" href="#/users/{{user.id}}/edit" class="btn mdl-button mdl-js-button
+        mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">Edit</a>
+      </td>
+
+      <!-- Delete button -->
+      <td>
+        <!-- Don't show delete button if this user is YOU (the visitor) -->
+        <a ng-disabled="user.deleting" ng-hide="me.id == user.id" ng-click="deleteUser(user.id)" class="btn mdl-button mdl-js-button
+        mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">
+          <span ng-show="!user.deleting">Delete</span>
+          <span class="overlord-loading-spinner fa fa-spinner" ng-show="user.deleting" ></span>
+          <span ng-show="user.deleting">Deleting...</span>
+        </a>
+
+      </td>
+    </tr>
+    </tbody>
+    <!-- End of Table body -->
+  </table>
+  <!-- End of Table -->
+
+</div>
