@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up for BrewSource</title>
+
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/angular-toastr.css">
+  <link rel="stylesheet" href="/styles/importer.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/styles/third-party/material/material.css">
+  <link rel="stylesheet" href="/styles/third-party/material/material.min.css">
+  <link rel="stylesheet" href="/styles/third-party/materialize/materialize.css">
+  <!--STYLES END-->
+
+  <!--Added this so the client has access to the csrf tag and it's grabbed first service side on every page -->
+  <script type="text/javascript">
+    window.SAILS_LOCALS = { _csrf: "<%= _csrf %>" };
+  </script>
+
+</head>
+
+<body ng-app="BrewSourcePublic" ng-controller="PublicCtrl" ng-cloak>
+
+<!-- Global errors (uiErrorBus) -->
+<div class="ui-error-bus">
+  <li ng-repeat="error in errorBus"><span>{{error.message}}</span><span ng-click="errorBus.splice(indexOf(error), 1)" class="fa fa-remove"></span></li>
+</div>
+</div>
+
+
+<form ng-submit="submitSignupForm()" id="sign-up-form" class="form-signin centralized-text" name="signup">
+  <h1 class="logo-font slogan amber-text text-darken-3 centralized-text">sign up</h1>
+
+  <ul ng-show="signupForm.topLevelErrorMessage" class="alert alert-danger">
+    <li>
+      <span>{{signupForm.topLevelErrorMessage}}</span>
+    </li>
+  </ul>
+
+  <ul ng-show="signupForm.validationErrors.length > 0" class="alert alert-danger">
+    <li ng-repeat="error in signupForm.validationErrors track by $index">
+      <span>{{error}}</span>
+    </li>
+  </ul>
+
+
+  <div class="row">
+
+    <!-- N A M E -->
+
+    <!-- checking whether the form "signup" with the "name" property is both $invalid AND $dirty.  If it is
+    insert the "has-error" class on the input field (i.e. insert a red border)
+    -->
+    <div class="control-group form-group col-md-12"
+         ng-class="{'has-error':signup.name.$invalid &&
+                              signup.name.$dirty}">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+      <!-- For this input field make it required, and have a min and max length -->
+      <input type="text" class="mdl-textfield__input form-control" name="name" ng-model="signupForm.name" id="name" required>
+        <label class="mdl-textfield__label" for="name">Name..</label>
+      <!-- Also, if signup.name.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
+      and/or minlength) -->
+      <span class="help-block has-error" ng-if="signup.name.$dirty">
+            <span ng-show="signup.name.$error.required">Name is required.</span>
+          </span>
+      </div>
+    </div>
+
+    <!-- E M A I L -->
+
+    <div class="control-group form-group col-md-12"
+         ng-class="{'has-error':signup.email.$invalid &&
+                              signup.email.$dirty}">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input type="email" class="mdl-textfield__input form-control" name="email" ng-model="signupForm.email" id="email" required>
+        <label class="mdl-textfield__label" for="email">Email..</label>
+        <span class="help-block has-error" ng-if="signup.email.$dirty">
+            <span ng-show="signup.email.$error.required">Email address is required.</span>
+            <span ng-show="signup.email.$error.email">Not a valid email address.</span>
+          </span>
+      </div>
+    </div>
+
+    <!-- P A S S W O R D -->
+
+    <div class="control-group form-group col-md-12"
+         ng-class="{'has-error':signup.password.$invalid &&
+                              signup.password.$dirty}">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <!-- Added the compareTo directive that compares the passwords -->
+      <input type="password" class="mdl-textfield__input form-control" placeholder="at least 6 characters" name="password" ng-model="signupForm.password" id="password" required ng-minlength="5" compare-to="signupForm.confirmPassword" >
+        <label class="mdl-textfield__label" for="password">Password..</label>
+        <span class="help-block has-error" ng-if="signup.email.$dirty">
+            <span ng-show="signup.password.$error.required">Password is required.</span>
+            <span ng-show="signup.password.$error.minlength">Password must be at least 6 characters.</span>
+          </span>
+    </div>
+
+    <!-- C O N F I R M  P A S S W O R D -->
+
+    <div class="control-group form-group col-md-12">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input type="password" class="mdl-textfield__input form-control" name="confirmation" ng-model="signupForm.confirmPassword" id="confirmation" required>
+        <label class="mdl-textfield__label" for="confirmation">Confirm Password..</label>
+        <span class="help-block has-error" ng-if="signup.confirmation.$dirty">
+            <span ng-show="signup.password.$error.compareTo">Password must match.</span>
+            <span ng-show="signup.confirmation.$error.required">Confirmation password is required.</span>
+          </span>
+    </div>
+    </div>
+  </div>
+
+  <br/>
+
+  <!-- Disable signup button until the form has no errors -->
+  <button class="btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text" type="submit" ng-disabled="signup.$invalid">
+      <span ng-show="!signupForm.loading">Sign Up</span>
+      <span class="overlord-loading-spinner fa fa-spinner" ng-show="signupForm.loading" ></span>
+      <span ng-show="signupForm.loading">Preparing your new account...</span>
+    </button>
+
+  <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+  </div>
+</form>
+
+
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-97439800-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!--SCRIPTS-->
+<script src="/js/dependencies/sails.io.js"></script>
+<script src="/js/dependencies/angular.1.3.js"></script>
+<script src="/js/dependencies/angular-messages.js"></script>
+<script src="/js/dependencies/angular-route.min.js"></script>
+<script src="/js/dependencies/angular-toastr.js"></script>
+<script src="/js/dependencies/compareTo.module.js"></script>
+<script src="/js/dependencies/jquery.js"></script>
+<script src="/js/dependencies/lodash.min.js"></script>
+<script src="/js/dependencies/moment.js"></script>
+<script src="/js/brewsource-dashboard/BrewSourceDashboard.module.js"></script>
+<script src="/js/brewsource-dashboard/DashboardCtrl.js"></script>
+<script src="/js/brewsource-public/BrewSourcePublic.module.js"></script>
+<script src="/js/brewsource-public/ui-controls/PublicCtrl.js"></script>
+<script src="/js/third-party/material/material.js"></script>
+<script src="/js/third-party/material/material.min.js"></script>
+<script src="/js/third-party/materialize/jquery-2.1.1.min.js"></script>
+<script src="/js/third-party/materialize/materialize.js"></script>
+<script src="/js/third-party/materialize/materialize.min.js"></script>
+<!--SCRIPTS END-->
+</body>
+</html>
+
