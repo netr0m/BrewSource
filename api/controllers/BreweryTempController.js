@@ -21,7 +21,7 @@ module.exports = {
   },
 
   show: function (req, res, next) {
-    BreweryTemp.findOne(req.param('id')).populateAll().exec(function (err, breweryTemp) {
+    BreweryTemp.findOne(req.param('id')).populate('owner', { select: ['id', 'name', 'location']}).exec(function (err, breweryTemp) {
       if (err) return next(err);
       if (!breweryTemp) return next();
 
