@@ -1,0 +1,85 @@
+<!-- Styles -->
+
+<link rel="stylesheet" href="/styles/angular-toastr.css">
+<link rel="stylesheet" href="/styles/importer.css">
+<link rel="stylesheet" href="/styles/styles.css">
+<link rel="stylesheet" href="/styles/third-party/material/material.css">
+<link rel="stylesheet" href="/styles/third-party/material/material.min.css">
+<link rel="stylesheet" href="/styles/third-party/materialize/materialize.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-deep_orange.min.css"/>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+
+<!-- End of Styles -->
+
+<div class="centralized-text">
+
+  <!-- Error state -->
+  <div ng-show="userBrewery.errorMsg">
+    <h5>Oops!</h5>
+    <p>Looks like an error occurred. Please try again later.</p>
+    <code>
+      {{errorMsg}}
+    </code>
+  </div>
+
+  <!-- Loading state -->
+  <div ng-show="userBrewery.loading">
+    <span class="overlord-loading-spinner fa fa-spinner"></span>
+    <span>Loading brewery data...</span>
+  </div>
+  <br/>
+
+  <h1 class="logo-font slogan amber-text text-darken-3">{{userBrewery.properties.name}}</h1>
+  <h2 class="logo-font sub-slogan">{{userBrewery.properties.owner.name}}'s brewery in {{userBrewery.properties.location}}</h2>
+  <br/>
+
+  <div id="chart_div" style="width: 100%; height: 500px;"></div>
+
+<!-- Charts Script -->
+  <!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages': ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+          ['Time', 'Temp C°'],
+        for(breweryTemp in breweryTempList.contents) {
+          ['{{breweryTemp.createdAt}}', breweryTemp.temperature],}
+    ]);
+      var options = {
+        title: 'Temperature measurements',
+        hAxis: {title: 'Time', titleTextStyle: {color: '#333'}},
+        vAxis: {}
+      };
+      var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+  </script>-->
+<!-- End of Charts Script -->
+</div>
+
+<!-- Scripts -->
+
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<script src="/js/dependencies/sails.io.js"></script>
+<script src="/js/dependencies/angular.1.3.js"></script>
+<script src="/js/dependencies/angular-messages.js"></script>
+<script src="/js/dependencies/angular-route.min.js"></script>
+<script src="/js/dependencies/angular-toastr.js"></script>
+<script src="/js/dependencies/compareTo.module.js"></script>
+<script src="/js/dependencies/jquery.js"></script>
+<script src="/js/dependencies/lodash.min.js"></script>
+<script src="/js/dependencies/moment.js"></script>
+<script src="/js/brewsource-dashboard/BrewSourceDashboard.module.js"></script>
+<script src="/js/brewsource-dashboard/DashboardCtrl.js"></script>
+<script src="/js/brewsource-public/BrewSourcePublic.module.js"></script>
+<script src="/js/brewsource-public/ui-controls/PublicCtrl.js"></script>
+<script src="/js/third-party/material/material.js"></script>
+<script src="/js/third-party/material/material.min.js"></script>
+<script src="/js/third-party/materialize/jquery-2.1.1.min.js"></script>
+<script src="/js/third-party/materialize/materialize.js"></script>
+<script src="/js/third-party/materialize/materialize.min.js"></script>
+
+<!-- End of Scripts -->

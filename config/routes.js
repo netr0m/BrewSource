@@ -22,38 +22,63 @@
 
 module.exports.routes = {
 
-  // HTML Views
-  '/': { view: 'homepage' },
-  'get /login': { view: 'user/login' },
-  'get /signup': { view: 'user/signup' },
+  ////////////////////////////////////////////////////////////
+  // Server-rendered HTML webpages
+  ////////////////////////////////////////////////////////////
+  'GET /': 'PageController.showHomePage',
+  'GET /signup': { view: 'signup' },
+  'GET /login': { view: 'login' },
 
-  // Endpoints
-  'post /login': 'UserController.login',
-  'post /signup': 'UserController.signup',
-  '/logout': 'UserController.logout'
 
-  /***************************************************************************
-  *                                                                          *
-  * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-  * etc. depending on your default view engine) your home page.              *
-  *                                                                          *
-  * (Alternatively, remove this and add an `index.html` file in your         *
-  * `assets` directory)                                                      *
-  *                                                                          *
-  ***************************************************************************/
 
-  /*'/': {
-    view: 'static/home'
-  }
-  */
-  /***************************************************************************
-  *                                                                          *
-  * Custom routes here...                                                    *
-  *                                                                          *
-  * If a request to a URL doesn't match any of the custom routes above, it   *
-  * is matched against Sails route blueprints. See `config/blueprints.js`    *
-  * for configuration options and examples.                                  *
-  *                                                                          *
-  ***************************************************************************/
+  ////////////////////////////////////////////////////////////
+  // JSON API
+  ////////////////////////////////////////////////////////////
+
+  /**
+   * User Management
+   */
+
+  // User enrollment + authentication
+  'POST /signup': 'UserController.signup',
+  'PUT /login': 'UserController.login',
+  '/logout': 'UserController.logout',
+
+  // Flag self as online
+  'PUT /me/online': 'UserController.comeOnline',
+
+  // Update my profile
+  'PUT /me': 'UserController.updateMyProfile',
+
+  // List users (also watch and subscribe to all)
+  'GET /users': 'UserController.find',
+
+  // Get user profile
+  'GET /users/:id': 'UserController.findOne',
+
+  // Update a user's profile data
+  'PUT /users/:id': 'UserController.update',
+
+  // Destroy a user
+  'DELETE /users/:id': 'UserController.destroy',
+
+  /**
+   * Brewery Management
+   */
+
+  // Brewery creation
+  'POST /breweries/new': 'BreweryController.create',
+
+  // List breweries
+  'GET /breweries': 'BreweryController.find',
+
+  // View a specific brewery
+  'GET /breweries/:id': 'BreweryController.findOne',
+
+  // Update a brewery
+  'PUT /breweries/:id': 'BreweryController.update',
+
+  // Destroy a brewery
+  'DELETE /breweries/:id': 'BreweryController.destroy'
 
 };

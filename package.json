@@ -1,10 +1,11 @@
 {
-  "name": "Brewsource",
+  "name": "BrewSource",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
-  "keywords": [],
+  "version": "1.0.0",
+  "description": "Making fermentation control easier since 2017!",
+  "keywords": ["brewing", "sails", "fermentation", "beer", "brewsource", "brew", "brewery"],
   "dependencies": {
+    "connect-redis": "^3.3.0",
     "ejs": "2.3.4",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.0.0",
@@ -19,10 +20,12 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
-    "jquery": "^3.2.1",
+    "machinepack-gravatar": "^1.2.0",
+    "machinepack-passwords": "^2.3.0",
     "rc": "1.0.1",
     "sails": "~0.12.11",
     "sails-disk": "~0.10.9",
+    "sails-mongo": "^0.12.2",
     "sails-mysql": "^0.11.5"
   },
   "scripts": {
@@ -34,6 +37,10 @@
     "type": "git",
     "url": "git://github.com/mortea15/Brewsource.git"
   },
-  "author": "anonymous node/sails user",
-  "license": "GPL-3.0"
+  "author": "mortea15/srsore15",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "request": "^2.51.0",
+    "sails-hook-autoreload": "^0.11.2"
+  }
 }
