@@ -28,9 +28,9 @@ module.exports.connections = {
    * Installed by default.                                                    *
    *                                                                          *
    ***************************************************************************/
-  localDiskDb: {
-    adapter: 'sails-disk'
-  },
+  //localDiskDb: {
+  // adapter: 'sails-disk'
+  //},
 
   /***************************************************************************
    *                                                                          *
@@ -40,13 +40,13 @@ module.exports.connections = {
    * Run: npm install sails-mysql                                             *
    *                                                                          *
    ***************************************************************************/
-  brewsourceMySQL: {
-    adapter: 'sails-mysql',
-    host: '46.101.188.26',
-    user: 'brewer', //optional
-    password: '', //optional
-    database: 'brewsource' //optional
-  },
+  //brewsourceMySQL: {
+  // adapter: 'sails-mysql',
+  // host: '',
+  // user: '', //optional
+  // password: '', //optional
+  // database: 'brewsource' //optional
+  //},
 
   /***************************************************************************
    *                                                                          *
@@ -56,13 +56,18 @@ module.exports.connections = {
    * Run: npm install sails-mongo                                             *
    *                                                                          *
    ***************************************************************************/
-   brewSourceMongo: {
+  //brewSourceMongo: {
+  // adapter: 'sails-mongo',
+  // host: '',
+  // port: ,
+  // user: '', //optional
+  // password: '', //optional
+  // database: 'brewsource' //optional
+  //},
+
+  brewSourceMongo: {
      adapter: 'sails-mongo',
-     host: 'localhost',
-     port: 27017,
-  //   user: 'username', //optional
-  //   password: 'password', //optional
-     database: 'brewsource' //optional
+     url: 'mongodb://USER:PASSWORD@HOST:IP/DATABASE?authSource=AUTHDATABASE'
    },
 
   /***************************************************************************
