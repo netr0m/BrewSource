@@ -36,7 +36,7 @@ module.exports = {
       return res.badRequest('id is a required parameter.');
     }
 
-    Brewery.findOne(req.param('id')).populateAll().exec(function(err, brewery) {
+    Brewery.findOne(req.param('id')).populate('owner', { select: ['id', 'name', 'email', 'admin', 'lastLoggedIn']}).exec(function(err, brewery) {
       if (err) return res.negotiate(err);
       if (!brewery) return res.notFound();
 
@@ -71,7 +71,8 @@ module.exports = {
           id: brewery.id,
           name: brewery.name,
           location: brewery.location,
-          owner: brewery.owner
+          owner: brewery.owner,
+          temperatures: brewery.temperatures
         });
       });
       // Finally, send array of breweries in the response
