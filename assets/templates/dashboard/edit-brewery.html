@@ -13,6 +13,9 @@
 
 <!-- End of Styles -->
 
+<!-- Viewport mobile tag for sensible mobile support -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
 <!-- Error state -->
 <div class="alert alert-info toggle" ng-show="userBrewery.errorMsg">
   <h5>Oops!</h5>
@@ -28,7 +31,7 @@
   <span>Loading brewery data...</span>
 </div>
 <center>
-  <div class="centralized-text main-container">
+  <div class="centralized-text">
 
     <h2 class="logo-font slogan amber-text text-darken-3">edit brewery</h2>
     <form ng-submit="editBrewery(userBrewery.properties.id)">
