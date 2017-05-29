@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
 <head>
-  <title>Create a new Brewery</title>
-
-  <!-- Viewport mobile tag for sensible mobile support -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-
   <!--STYLES-->
   <link rel="stylesheet" href="/styles/angular-toastr.css">
   <link rel="stylesheet" href="/styles/importer.css">
@@ -16,9 +8,12 @@
   <link rel="stylesheet" href="/styles/third-party/materialize/materialize.css">
   <!--STYLES END-->
 
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
   <!--Added this so the client has access to the csrf tag and it's grabbed first service side on every page -->
   <script type="text/javascript">
-    window.SAILS_LOCALS = { _csrf: "<%= _csrf %>" };
+    window.SAILS_LOCALS = {_csrf: "<%= _csrf %>"};
   </script>
 
 </head>
@@ -27,7 +22,10 @@
 
 <!-- Global errors (uiErrorBus) -->
 <div class="ui-error-bus">
-  <li ng-repeat="error in errorBus"><span>{{error.message}}</span><span ng-click="errorBus.splice(indexOf(error), 1)" class="fa fa-remove"></span></li>
+  <li ng-repeat="error in errorBus">
+    <span>{{error.message}}</span>
+    <span ng-click="errorBus.splice(indexOf(error), 1)" class="fa fa-remove"></span>
+  </li>
 </div>
 </div>
 
@@ -61,7 +59,8 @@
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 
         <!-- For this input field make it required, and have a min and max length -->
-        <input type="text" class="mdl-textfield__input form-control" name="name" ng-model="newBreweryForm.name" id="name" required>
+        <input type="text" class="mdl-textfield__input form-control" name="name" ng-model="newBreweryForm.name"
+               id="name" required>
         <label class="mdl-textfield__label" for="name">Name..</label>
         <!-- Also, if newbrewery.name.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
         and/or minlength) -->
@@ -77,7 +76,8 @@
          ng-class="{'has-error':newbrewery.location.$invalid &&
                               newbrewery.location.$dirty}">
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input type="text" class="mdl-textfield__input form-control" name="location" ng-model="newBreweryForm.location" id="location" required>
+        <input type="text" class="mdl-textfield__input form-control" name="location" ng-model="newBreweryForm.location"
+               id="location" required>
         <label class="mdl-textfield__label" for="location">Location..</label>
         <span class="help-block has-error" ng-if="newbrewery.location.$dirty">
             <span ng-show="newbrewery.location.$error.required">Location is required.</span>
@@ -87,13 +87,14 @@
     <br/>
 
     <!-- Disable create button until the form has no errors -->
-    <button class="btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text" type="submit" ng-disabled="newbrewery.$invalid">
+    <button class="btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text"
+            type="submit" ng-disabled="newbrewery.$invalid">
       <span ng-show="!newBreweryForm.loading">Create Brewery</span>
-      <span class="overlord-loading-spinner fa fa-spinner" ng-show="newBreweryForm.loading" ></span>
+      <span class="overlord-loading-spinner fa fa-spinner" ng-show="newBreweryForm.loading"></span>
       <span ng-show="newBreweryForm.loading">Preparing your new brewery...</span>
     </button>
 
-    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+    <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
   </div>
 </form>
 
