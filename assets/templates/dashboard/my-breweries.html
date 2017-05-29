@@ -1,11 +1,14 @@
-<div class="main-container centralized-text">
+<!-- Viewport mobile tag for sensible mobile support -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<div class="centralized">
 
   <h1 class="logo-font slogan amber-text text-darken-3 centralized-text">breweries</h1>
 
   <!-- Error state -->
   <div ng-show="userBreweryList.errorMsg">
-    <h5>Oops!</h5>
-    <p>Looks like an error occurred.  Please try again later.</p>
+    <h5>Error</h5>
+    <p>Looks like an error occurred. Please try again later.</p>
     <code>
       {{userBreweryList.errorMsg}}
     </code>
@@ -22,64 +25,57 @@
     <span>No breweries yet.</span>
   </div>
 
-  <!-- Table -->
-  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp centralized-text"
-         ng-show="!userBreweryList.loading && userBreweryList.contents.length > 0">
-
-    <!-- Table header -->
-    <thead>
-    <tr>
-      <th class="mdl-data-table__cell--non-numeric">Name</th>
-      <th class="mdl-data-table__cell--non-numeric">Location</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-    </thead>
-    <!-- End of table header -->
-
-    <!-- Table body -->
-    <tbody>
-    <!-- Repeat for every brewery in the list -->
-    <tr ng-repeat="brewery in userBreweryList.contents" ng-show="brewery.owner.id == me.id">
-
-      <!-- Table body -->
-      <!-- Brewery's name -->
-      <td  class="mdl-data-table__cell--non-numeric"> {{brewery.name}} </td>
-      <!-- Brewery's email -->
-      <td class="mdl-data-table__cell--non-numeric"> {{brewery.location}} </td>
-
-      <!-- Show button -->
-      <td>
-        <a href="#/breweries/{{brewery.id}}" class="btn mdl-button mdl-js-button
-        mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">Show</a>
-      </td>
-
-      <!-- Edit button -->
-      <td>
-        <a href="#/breweries/{{brewery.id}}/edit" class="btn mdl-button mdl-js-button
-        mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">Edit</a>
-      </td>
-
-      <!-- Delete button -->
-      <td>
-        <a ng-disabled="brewery.deleting" ng-click="deleteBrewery(brewery.id)" class="btn mdl-button mdl-js-button
-        mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">
-          <span ng-show="!brewery.deleting">Delete</span>
-          <span class="overlord-loading-spinner fa fa-spinner" ng-show="brewery.deleting" ></span>
-          <span ng-show="brewery.deleting">Deleting...</span>
+  <div id="resultList" class="result-shadow result-container centralized">
+    <!-- List of users -->
+    <ul id="userDatas" class="collection black-text" ng-show="!userBreweryList.loading && userBreweryList.contents.length > 0">
+      <li id="userProfileData" class="collection-item avatar" ng-repeat="brewery in userBreweryList.contents" ng-show="brewery.owner.id == me.id">
+        <img id="beerIcon"
+             src="http://icons.iconarchive.com/icons/flat-icons.com/flat/512/Beer-icon.png"
+             alt=""
+             class="circle">
+        <!-- Name of Brewery -->
+        <span id="breweryName" class="title">
+          {{brewery.name}}
+        </span>
+        <!-- Location of Brewery -->
+        <p id="breweryLocation">
+          {{brewery.location}}
+        </p>
+        <!-- Link to profile -->
+        <a id="breweryLink" href="#/breweries/{{brewery.id}}"
+           class="secondary-content">
+          <i class="material-icons">forward</i>
         </a>
-
-      </td>
-    </tr>
-    </tbody>
-    <!-- End of Table body -->
-  </table>
-  <!-- End of Table -->
+        <div class="mdl-tooltip mdl-tooltip--large " for="breweryLink">
+          Click to view brewery
+        </div>
+      </li>
+    </ul>
+  </div>
 
   <br/>
   <br/>
+  <div class="centralized-text">
   <a href="#/breweries/new" class="btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">
     Create a new brewery
   </a>
+  </div>
 </div>
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-97439800-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

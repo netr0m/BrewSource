@@ -231,7 +231,7 @@ angular.module('BrewSourceDashboard').controller('DashboardCtrl', ['$scope', '$h
     $scope.userProfile.saving = true;
     $scope.userProfile.errorMsg = '';
 
-    // Send request to Sails to delete the specified user.
+    // Send request to Sails to edit the specified user.
     return $http.put('/me', {
       name: $scope.userProfile.properties.name,
       email: $scope.userProfile.properties.email,
