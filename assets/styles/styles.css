@@ -3,6 +3,10 @@
   margin: 0 auto;
 }
 
+.result-container {
+  width: 500px;
+}
+
 .aboutcard-container {
   width: 600px;
   margin: 0 auto;
@@ -69,6 +73,21 @@ Subtitle
   .demo-card-wide.mdl-card {
     width: 256px;
   }
+  .result-container {
+    width: 315px;
+  }
+}
+
+@media screen and (min-width: 321px) and (max-width: 400px) {
+  .result-container {
+    width: 320px;
+  }
+}
+
+@media screen and (min-width: 401px) and (max-width: 650px) {
+  .result-container {
+    width: 400px;
+  }
 }
 
 @media screen and (min-width: 321px) and (max-width: 650px) {
@@ -97,3 +116,8 @@ Subtitle
 .about-shadow {
   box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);
 }
+
+.result-shadow {
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.3);
+}
+
