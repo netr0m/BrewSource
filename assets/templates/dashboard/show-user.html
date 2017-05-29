@@ -1,3 +1,6 @@
+<!-- Viewport mobile tag for sensible mobile support -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
 <!-- Styles -->
 
 <link rel="stylesheet" href="/styles/angular-toastr.css">
@@ -57,7 +60,11 @@
       </div>
       <div class="mdl-card__actions mdl-card--border">
         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-           href="#/profile/edit">
+           href="#/profile/edit" ng-show="userProfile.properties.id == me.id">
+          Edit profile
+        </a>
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+           href="#/users/{{userProfile.properties.id}}/edit" ng-show="userProfile.properties.id != me.id && userProfile.properties.admin">
           Edit profile
         </a>
       </div>
@@ -66,6 +73,25 @@
 </div>
 </center>
 </div>
+
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-97439800-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <!-- Scripts -->
 
