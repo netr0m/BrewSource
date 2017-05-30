@@ -23,8 +23,8 @@ module.exports = {
       required: true
     },
 
-    temperatures: {
-      collection: 'brewerytemp',
+    batches: {
+      collection: 'batch',
       via: 'owner'
     }
 
