@@ -15,7 +15,7 @@ module.exports = {
     },
 
     owner: {
-      model: 'brewery',
+      model: 'batch',
       required: true
     },
   }
