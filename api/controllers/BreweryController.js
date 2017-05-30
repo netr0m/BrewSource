@@ -66,7 +66,7 @@ module.exports = {
       // Loop through each brewery
       _.each(breweries, function(brewery) {
 
-        // Send every attribute except temperatures
+        // Send every attribute
         prunedBreweries.push({
           id: brewery.id,
           name: brewery.name,
