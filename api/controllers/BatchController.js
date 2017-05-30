@@ -45,6 +45,7 @@ module.exports = {
         id: batch.id,
         name: batch.name,
         idealTemp: batch.idealTemp,
+        createdAt: batch.createdAt,
         owner: batch.owner,
         temperatures: batch.temperatures
       });
@@ -70,6 +71,7 @@ module.exports = {
           id: batch.id,
           name: batch.name,
           idealTemp: batch.idealTemp,
+          createdAt: batch.createdAt,
           owner: batch.owner,
           temperatures: batch.temperatures
         });
