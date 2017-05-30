@@ -7,9 +7,21 @@
 <link rel="stylesheet" href="/styles/third-party/material/material.min.css">
 <link rel="stylesheet" href="/styles/third-party/materialize/materialize.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-deep_orange.min.css"/>
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+
+<!-- Square card -->
+<style>
+  .demo-card-square.mdl-card {
+    width: 320px;
+    height: 320px;
+  }
+
+  .demo-card-square > .mdl-card__title {
+    color: #fff;
+    background: url('nope.jpeg') bottom right 15% no-repeat #46B6AC;
+  }
+</style>
 
 <!-- End of Styles -->
 
@@ -18,23 +30,22 @@
             mdl-layout--fixed-tabs">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span
-        class="mdl-layout-title centralized">{{breweryBatch.properties.name}}, {{breweryBatch.properties.location}}</span>
+      <!-- Title -->
+      <span class="mdl-layout-title">{{breweryBatch.properties.name}}</span>
     </div>
     <!-- Tabs -->
     <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-      <a href="#24HGraph" class="mdl-layout__tab is-active">24 Hour Graph</a>
-      <a href="#7dayGraph" class="mdl-layout__tab">7 Day Graph</a>
-      <a href="#liveStream" class="mdl-layout__tab">Livestream</a>
+      <a href="#dayGraph" class="mdl-layout__tab is-active">24 Hour Graph</a>
+      <a href="#weekGraph" class="mdl-layout__tab">7 Day Graph</a>
+      <a href="#liveStream" class="mdl-layout__tab">LiveStream</a>
       <a href="#batchSettings" class="mdl-layout__tab">Batch</a>
     </div>
   </header>
   <main class="mdl-layout__content">
-
     <!-- 2 4  H O U R  G R A P H  tab -->
-
-    <section class="mdl-layout__tab-panel is-active" id="24HGraph">
+    <section class="mdl-layout__tab-panel is-active" id="dayGraph">
       <div class="page-content">
+        <!-- START OF CONTENT -->
 
         <div class="centralized-text">
 
@@ -50,100 +61,137 @@
           <!-- Loading state -->
           <div ng-show="breweryBatch.loading">
             <span class="overlord-loading-spinner fa fa-spinner"></span>
-            <span>Loading brewery data...</span>
+            <span>Loading batch data...</span>
           </div>
-          <br/>
 
-          <h1 class="logo-font slogan amber-text text-darken-3">{{breweryBatch.properties.name}}</h1>
-          <br/>
+          <p>24 Hour Temperature Graph</p>
+
+          <div id="dayChart_div" style="width: 100%; height: 500px;"></div>
+
+          <!-- Charts Script -->
+          <!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+          <script type="text/javascript">
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                  ['Time', 'Temp C°'],
+                for(breweryTemp in breweryTempList.contents) {
+                  ['{{breweryTemp.createdAt}}', breweryTemp.temperature],}
+            ]);
+              var options = {
+                title: 'Temperature measurements',
+                hAxis: {title: 'Time', titleTextStyle: {color: '#333'}},
+                vAxis: {}
+              };
+              var chart = new google.visualization.AreaChart(document.getElementById('dayChart_div'));
+              chart.draw(data, options);
+            }
+          </script>-->
+          <!-- End of Charts Script -->
+
+        </div>
+        <!-- END OF CONTENT -->
+      </div>
+    </section>
+
+
+    <!-- 7  D A Y  G R A P H  tab -->
+    <section class="mdl-layout__tab-panel" id="weekGraph">
+      <div class="page-content">
+        <!-- START OF CONTENT -->
+
+        <div class="centralized-text">
 
           <!-- Error state -->
-          <div ng-show="breweryBatchList.errorMsg">
-            <h5>Error</h5>
+          <div ng-show="breweryBatch.errorMsg">
+            <h5>Oops!</h5>
             <p>Looks like an error occurred. Please try again later.</p>
             <code>
-              {{breweryBatchList.errorMsg}}
+              {{errorMsg}}
             </code>
           </div>
 
           <!-- Loading state -->
-          <div ng-show="breweryBatchList.loading" class="centralized-text">
+          <div ng-show="breweryBatch.loading">
             <span class="overlord-loading-spinner fa fa-spinner"></span>
-            <span>Loading batches...</span>
+            <span>Loading batch data...</span>
           </div>
 
-          <!-- Empty state -->
-          <div ng-show="breweryBatchList.contents.length === 0" class="centralized-text">
-            <span>No batches yet.</span>
-          </div>
+          <p>7 Day Temperature Graph</p>
 
-          <div id="resultList" class="result-shadow result-container centralized">
-            <!-- List of Batches -->
-            <ul id="batchDatas" class="collection black-text"
-                ng-show="!breweryBatchList.loading && breweryBatchList.contents.length > 0">
-              <li id="batchData" class="collection-item avatar" ng-repeat="batch in breweryBatchList.contents"
-                  ng-show="batch.owner.owner == me.id">
-                <img id="beerIcon"
-                     src="http://icons.iconarchive.com/icons/flat-icons.com/flat/512/Beer-icon.png"
-                     alt=""
-                     class="circle">
-                <!-- Name of Batch -->
-                <span id="batchName" class="title">
-                  {{batch.name}}
-                </span>
-                <!-- Ideal Temp of Batch -->
-                <p id="breweryLocation">
-                  <b>Ideal Temperature:</b> {{batch.idealTemp}}°C
-                </p>
-                <!-- Link to profile -->
-                <a id="batchLink" href="#/batches/{{batch.id}}"
-                   class="secondary-content">
-                  <i class="material-icons">forward</i>
-                </a>
-                <div class="mdl-tooltip mdl-tooltip--large " for="batchLink">
-                  Click to view batch
-                </div>
-              </li>
-            </ul>
-          </div>
+          <div id="weekChart_div" style="width: 100%; height: 500px;"></div>
 
-          <br/>
-          <br/>
-          <div class="centralized-text">
-            <a href="#/batches/new"
-               class="btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">
-              Create a new batch
-            </a>
-          </div>
+          <!-- Charts Script -->
+          <!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+          <script type="text/javascript">
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                  ['Time', 'Temp C°'],
+                for(breweryTemp in breweryTempList.contents) {
+                  ['{{breweryTemp.createdAt}}', breweryTemp.temperature],}
+            ]);
+              var options = {
+                title: 'Temperature measurements',
+                hAxis: {title: 'Time', titleTextStyle: {color: '#333'}},
+                vAxis: {}
+              };
+              var chart = new google.visualization.AreaChart(document.getElementById('weekChart_div'));
+              chart.draw(data, options);
+            }
+          </script>-->
+          <!-- End of Charts Script -->
 
         </div>
-
+        <!-- END OF CONTENT -->
       </div>
     </section>
 
-    <!-- 7  D A Y  G R A P H  tab -->
-    <section class="mdl-layout__tab-panel" id="7dayGraph">
-      <div class="page-content">
-
-
-
-      </div>
-    </section>
 
     <!-- L I V E S T R E A M  tab -->
     <section class="mdl-layout__tab-panel" id="liveStream">
       <div class="page-content">
+        <!-- START OF CONTENT -->
+        <div class="centralized-text">
 
+          <p>Livestream here m8</p>
 
+        </div>
+        <!-- END OF CONTENT -->
       </div>
     </section>
+
 
     <!-- B A T C H  S E T T I N G S  tab -->
     <section class="mdl-layout__tab-panel" id="batchSettings">
       <div class="page-content">
+        <!-- START OF CONTENT -->
+        <div class="centralized-text centralized">
+          <br/>
+          <br/>
+          <center>
+          <div class="demo-card-square mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title mdl-card--expand">
+              <h2 class="mdl-card__title-text">{{breweryBatch.properties.name}}</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <b>Ideal Temperature:</b> {{breweryBatch.properties.idealTemp}}°C<br>
+              <b>Current Temperature: </b> 00°C<br>
+              {{breweryBatch.properties.createdAt}}
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                 href="#/batches/{{breweryBatch.properties.id}}/edit">
+                Edit Batch
+              </a>
+            </div>
+          </div>
+          </center>
 
-
-
+        </div>
+        <!-- END OF CONTENT -->
       </div>
     </section>
   </main>
