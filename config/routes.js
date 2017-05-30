@@ -79,6 +79,26 @@ module.exports.routes = {
   'PUT /breweries/:id': 'BreweryController.update',
 
   // Destroy a brewery
-  'DELETE /breweries/:id': 'BreweryController.destroy'
+  'DELETE /breweries/:id': 'BreweryController.destroy',
+
+  /**
+   * Batch Management
+   */
+
+  // Batch creation
+  'POST /batches/new': 'BatchController.create',
+
+  // List batches
+  'GET /batches': 'BatchController.find',
+
+  // View a specific batch
+  'GET /batches/:id': 'BatchController.findOne',
+
+  // Update a batch
+  'PUT /batches/:id': 'BatchController.update',
+
+  // Destroy a batch
+  'DELETE /batches/:id': 'BatchController.destroy'
+
 
 };
