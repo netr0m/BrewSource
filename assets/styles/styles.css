@@ -94,6 +94,10 @@ Subtitle
   .demo-card-wide.mdl-card {
     width: 320px;
   }
+  .slogan {
+    font-size: 30px;
+    padding-top: 0px;
+  }
 }
 
 .demo-card-wide > .mdl-card__title {
