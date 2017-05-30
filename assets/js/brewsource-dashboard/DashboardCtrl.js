@@ -8,6 +8,12 @@ angular.module('BrewSourceDashboard').controller('DashboardCtrl', ['$scope', '$h
   /////////////////////////////////////////////////////////////////////////////////
 
   // Set up initial objects
+
+  /**
+   * Attributes for models
+   */
+
+  // Userprofile attributes etc.
   $scope.userProfile = {
     properties: {},
     errorMsg: '',
@@ -15,6 +21,7 @@ angular.module('BrewSourceDashboard').controller('DashboardCtrl', ['$scope', '$h
     loading: false
   };
 
+  // Brewery attributes etc.
   $scope.userBrewery = {
     properties: {},
     errorMsg: '',
@@ -22,28 +29,62 @@ angular.module('BrewSourceDashboard').controller('DashboardCtrl', ['$scope', '$h
     loading: false
   };
 
-  $scope.userBreweryList = {
-    loading: false,
+  // Batch attributes etc.
+  $scope.breweryBatch = {
+    properties: {},
     errorMsg: '',
-    contents: []
+    saving: false,
+    loading: false
   };
 
-  $scope.newBreweryForm = {
-    loading: false,
-    topLevelErrorMessage: '',
-    validationErrors: []
-  };
+  /**
+   * Lists of objects
+   */
 
+  // List of users
   $scope.userList = {
     loading: false,
     errorMsg: '',
     contents: []
   };
 
+  // List of breweries
+  $scope.userBreweryList = {
+    loading: false,
+    errorMsg: '',
+    contents: []
+  };
+
+  // List of batches
+  $scope.breweryBatchList = {
+    loading: false,
+    errorMsg: '',
+    contents: []
+  };
+
+  /**
+   * Forms for creation, change
+   */
+
+  // Form for changing your password
   $scope.changePasswordForm = {
     saving: false,
     errorMsg: '',
     properties: {}
+  };
+
+  // Form for creating a new brewery
+  $scope.newBreweryForm = {
+    loading: false,
+    topLevelErrorMessage: '',
+    validationErrors: []
+  };
+
+  // Form for creating a new batch
+  $scope.newBatchForm = {
+    loading: false,
+    topLevelErrorMessage: '',
+    validationErrors: []
   };
 
   // Pull representation of the current visitor from data bootstrapped into the
@@ -426,6 +467,9 @@ angular.module('BrewSourceDashboard').controller('DashboardCtrl', ['$scope', '$h
       });
   };
 
+  /**
+   * Our user signaled their intent to create a brewery.
+   */
   $scope.createBrewery = function(){
 
     // Set the loading state (i.e. show loading spinner)
@@ -456,5 +500,107 @@ angular.module('BrewSourceDashboard').controller('DashboardCtrl', ['$scope', '$h
       });
   };
 
+  /**
+   * Management of batches
+   */
+
+  /**
+   * Our user signaled their intent to edit a batch.
+   */
+  $scope.editBatch = function(batchId) {
+
+    // TODO only allow the owner to edit a batch
+
+    // Set loading ("Saving") state
+    $scope.breweryBatch.saving = true;
+    $scope.breweryBatch.errorMsg = '';
+
+    // Send request to Sails to edit the specified brewery.
+    return $http.put('/batches/' + batchId, {
+      name: $scope.breweryBatch.properties.name,
+      idealTemp: $scope.breweryBatch.properties.idealTemp,
+      owner: $scope.breweryBatch.properties.id
+    })
+      .then(function onSuccess(sailsResponse) {
+        // Everything is OK.
+      })
+      .catch(function onError(sailsResponse) {
+
+        // Handle errors (no known error types, so display a generic error
+        $scope.breweryBatch.errorMsg = 'An unexpected error occurred: ' + (sailsResponse.data||sailsResponse.status);
+      })
+      .finally(function eitherWay() {
+        $scope.breweryBatch.saving = false;
+      });
+  };
+
+  /**
+   * Our user signaled their intent to delete a batch.
+   */
+  $scope.deleteBatch = function(batchId) {
+
+    // TODO only allow the owner to delete a batch
+
+    // Get a reference to the user row on the $scope so we can set
+    // loading ("deleting") state.
+    var $aBatch = _.find($scope.breweryBatchList.contents, { id: batchId });
+
+    // Set loading ("deleting") state
+    $aBatch.deleting = true;
+
+    // Send a request to Sails to delete the specified brewery.
+    $http.delete('/batches/' + batchId)
+      .then(function onSuccess(sailsResponse) {
+
+        // User deleted successfully from server - now we'll remove it
+        // from '$scope.breweryBatchList.contents' to clear it from the DOM.
+        _.remove($scope.breweryBatchList.contents, {
+          id: batchId
+        });
+      })
+      .catch(function onError(sailsResponse) {
+        // the "''+" is just to cast the error to a string
+        var errMsg = ''+(sailsResponse.data||sailsResponse.status);
+        toastr.error(errMsg);
+      })
+      .finally(function eitherWay() {
+        // Disable loading state (if still relevant)
+        if (!$aBatch) return;
+        $aBatch.deleting = false;
+      });
+  };
+
+  /**
+   * Our user signaled their intent to create a batch.
+   */
+  $scope.createBatch = function(){
+
+    // Set the loading state (i.e. show loading spinner)
+    $scope.newBatchForm.loading = true;
+
+    // Wipe out errors since we are now loading from the server again and we aren't sure if
+    // the current form values that were entered are valid or not.
+    $scope.newBatchForm.validationErrors = [];
+    $scope.newBatchForm.topLevelErrorMessage = null;
+
+    // Submit request to Sails.
+    $http.post('/batches/new', {
+      name: $scope.newBatchForm.name,
+      idealTemp: $scope.newBatchForm.idealTemp,
+      owner: $scope.newBatchForm.owner
+    })
+      .then(function onSuccess (){
+        // Refresh the page now that we've been logged in.
+        window.location = '#/batches';
+      })
+      .catch(function onError(sailsResponse) {
+
+        console.log(sailsResponse);
+        toastr.error('An unexpected error occurred.', undefined);
+      })
+      .finally(function eitherWay(){
+        $scope.newBatchForm.loading = false;
+      });
+  };
 }]);
 
