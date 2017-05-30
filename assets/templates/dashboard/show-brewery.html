@@ -10,6 +10,19 @@
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
 
+<!-- Square card -->
+<style>
+  .demo-card-square.mdl-card {
+    width: 320px;
+    height: 320px;
+  }
+
+  .demo-card-square > .mdl-card__title {
+    color: #fff;
+    background: url('nope.jpeg') bottom right 15% no-repeat #46B6AC;
+  }
+</style>
+
 <!-- End of Styles -->
 
 <!-- Simple header with fixed tabs. -->
@@ -122,9 +135,30 @@
 
     <section class="mdl-layout__tab-panel" id="brewerySettings">
       <div class="page-content">
+        <!-- START OF CONTENT -->
+        <div class="centralized-text centralized">
 
-
-
+          <br/>
+          <br/>
+          <center>
+            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text">{{userBrewery.properties.name}}</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                {{userBrewery.properties.location}}<br>
+                {{userBrewery.properties.id}}
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                   href="#/breweries/{{userBrewery.properties.id}}/edit">
+                  Edit Brewery
+                </a>
+              </div>
+            </div>
+          </center>
+        </div>
+        <!-- END OF CONTENT -->
       </div>
     </section>
   </main>
@@ -172,27 +206,3 @@
 <script src="/js/third-party/materialize/materialize.min.js"></script>
 
 <!-- End of Scripts -->
-
-<div id="chart_div" style="width: 100%; height: 500px;"></div>
-
-<!-- Charts Script -->
-<!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-  google.charts.load('current', {'packages': ['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-        ['Time', 'Temp C°'],
-      for(breweryTemp in breweryTempList.contents) {
-        ['{{breweryTemp.createdAt}}', breweryTemp.temperature],}
-  ]);
-    var options = {
-      title: 'Temperature measurements',
-      hAxis: {title: 'Time', titleTextStyle: {color: '#333'}},
-      vAxis: {}
-    };
-    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
-  }
-</script>-->
-<!-- End of Charts Script -->
