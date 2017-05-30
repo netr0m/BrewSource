@@ -21,7 +21,7 @@
   </div>
 
   <!-- Empty state -->
-  <div ng-show="userBreweryList.contents.length === 0">
+  <div ng-show="userBreweryList.contents.length === 0" class="centralized-text">
     <span>No breweries yet.</span>
   </div>
 
@@ -40,6 +40,9 @@
         <!-- Location of Brewery -->
         <p id="breweryLocation">
           {{brewery.location}}
+        </p>
+        <p id="breweryID" style="color: grey; font-size: 12px;">
+          {{brewery.id}}
         </p>
         <!-- Link to profile -->
         <a id="breweryLink" href="#/breweries/{{brewery.id}}"
