@@ -36,7 +36,7 @@ module.exports = {
       return res.badRequest('id is a required parameter.');
     }
 
-    Brewery.findOne(req.param('id')).populate('owner', { select: ['id', 'name', 'email', 'admin', 'lastLoggedIn']}).exec(function(err, brewery) {
+    Brewery.findOne(req.param('id')).populate('owner', { select: ['id', 'name', 'email', 'admin', 'lastLoggedIn']}, 'batches').exec(function(err, brewery) {
       if (err) return res.negotiate(err);
       if (!brewery) return res.notFound();
 
@@ -46,7 +46,7 @@ module.exports = {
         name: brewery.name,
         location: brewery.location,
         owner: brewery.owner,
-        temperatures: brewery.temperatures
+        batches: brewery.batches
       });
     });
   },
@@ -58,7 +58,7 @@ module.exports = {
    */
   find: function(req, res) {
 
-    Brewery.find().populate('owner', { select: ['id', 'name', 'email', 'admin', 'lastLoggedIn']}).exec(function(err, breweries) {
+    Brewery.find().populate('owner', { select: ['id', 'name', 'email', 'admin', 'lastLoggedIn']}).populate('batches', { select: ['id', 'name', 'idealTemp', 'createdAt']}).exec(function(err, breweries) {
       if (err) return res.negotiate(err);
 
       var prunedBreweries = [];
@@ -72,7 +72,7 @@ module.exports = {
           name: brewery.name,
           location: brewery.location,
           owner: brewery.owner,
-          temperatures: brewery.temperatures
+          batches: brewery.batches
         });
       });
       // Finally, send array of breweries in the response
