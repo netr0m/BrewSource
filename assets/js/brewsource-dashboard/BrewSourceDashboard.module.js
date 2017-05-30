@@ -176,6 +176,14 @@ angular.module('BrewSourceDashboard')
           $scope.userProfile.errorMsg = '';
           $http.get('/users/'+$routeParams.id)
             .then(function onSuccess(res){
+              // TODO FIX THIS
+              if(localStorage.getItem("reload") != "1"){
+                localStorage.setItem("reload","1");
+                window.location.reload();
+              }
+              else{
+                localStorage.removeItem("reload");
+              }
               angular.extend($scope.userProfile.properties, res.data);
             })
             .catch(function onError(res){
@@ -224,10 +232,17 @@ angular.module('BrewSourceDashboard')
               console.error('Unexpected error from Sails:', jwr.error);
               return;
             }
-            // angular.extend($scope.userProfile.properties, res.data);
           });
 
           // Pass `$scope.me` in to `$scope.userProfile`
+          // TODO FIX THIS
+          if(localStorage.getItem("reload") != "1"){
+            localStorage.setItem("reload","1");
+            window.location.reload();
+          }
+          else{
+            localStorage.removeItem("reload");
+          }
           angular.extend($scope.userProfile.properties, $scope.me);
 
         }]
@@ -238,6 +253,14 @@ angular.module('BrewSourceDashboard')
         templateUrl: 'templates/dashboard/create-brewery.html',
         controller: ['$scope', '$location', '$http', function($scope, $location, $http) {
 
+          // TODO FIX THIS
+          if(localStorage.getItem("reload") != "1"){
+            localStorage.setItem("reload","1");
+            window.location.reload();
+          }
+          else{
+            localStorage.removeItem("reload");
+          }
           angular.extend($scope.userProfile.properties, $scope.me);
         }]
       })
@@ -277,7 +300,7 @@ angular.module('BrewSourceDashboard')
       // #/breweries/:id
       .when('/breweries/:id', {
         templateUrl: 'templates/dashboard/show-brewery.html',
-        controller: ['$scope', '$location', '$routeParams', '$http', function($scope, $location, $routeParams, $http) {
+        controller: ['$scope', '$location', '$routeParams', '$http', '$route', function($scope, $location, $routeParams, $http, $route) {
 
           // Lookup brewery with the specified id from the server
           $scope.userBrewery.loading = false;
@@ -289,7 +312,39 @@ angular.module('BrewSourceDashboard')
               return;
             }
             angular.extend($scope.userBrewery.properties, data);
+
+            $scope.breweryBatchList.loading = true;
+            $scope.breweryBatchList.errorMsg = '';
+            io.socket.get('/batches', function(batchData, jwr) {
+              if (jwr.error) {
+                // Display generic error, since there are no expected errors.
+                $scope.breweryBatchList.errorMsg = 'An unexpected error occurred: ' + (batchData||jwr.status);
+
+                // Hide loading spinner
+                $scope.breweryBatchList.loading = false;
+                return;
+              }
+
+              // Populate the userBreweryList with the newly fetched breweries
+              $scope.breweryBatchList.contents = batchData;
+
+              // Hide loading spinner
+              $scope.breweryBatchList.loading = false;
+
+              // render changes into the DOM
+              $scope.$apply();
+            });
+
             $scope.userBrewery.loading = false;
+            // A VERY temporary fix for issues with Material Design not loading properly through angular
+            // TODO FIX THIS
+            if(localStorage.getItem("reload") != "1"){
+              localStorage.setItem("reload","1");
+              window.location.reload();
+            }
+            else{
+              localStorage.removeItem("reload");
+            }
             $scope.$apply();
           });
         }]
@@ -305,6 +360,14 @@ angular.module('BrewSourceDashboard')
           $scope.userBrewery.errorMsg = '';
           $http.get('/breweries/' + $routeParams.id)
             .then(function onSuccess(res) {
+              // TODO FIX THIS
+              if(localStorage.getItem("reload") != "1"){
+                localStorage.setItem("reload","1");
+                window.location.reload();
+              }
+              else{
+                localStorage.removeItem("reload");
+              }
               angular.extend($scope.userBrewery.properties, res.data);
             })
             .catch(function onError(res) {
@@ -316,6 +379,104 @@ angular.module('BrewSourceDashboard')
         }]
       })
 
+      // /batches/new
+      .when('/batches/new', {
+        templateUrl: 'templates/dashboard/create-batch.html',
+        controller: ['$scope', '$location', '$http', function($scope, $location, $http) {
+
+          // TODO FIX THIS
+          if(localStorage.getItem("reload") != "1"){
+            localStorage.setItem("reload","1");
+            window.location.reload();
+          }
+          else{
+            localStorage.removeItem("reload");
+          }
+          angular.extend($scope.userProfile.properties, $scope.me);
+        }]
+      })
+
+
+      // #/batches
+      .when('/batches', {
+        templateUrl: 'templates/dashboard/my-batches.html',
+        controller: ['$scope', '$location', '$http', function($scope, $location, $http) {
+
+          // Send request to Sails to fetch list of breweries.
+          $scope.breweryBatchList.loading = true;
+          $scope.breweryBatchList.errorMsg = '';
+          io.socket.get('/batches', function(data, jwr) {
+            if (jwr.error) {
+              // Display generic error, since there are no expected errors.
+              $scope.breweryBatchList.errorMsg = 'An unexpected error occurred: ' + (data||jwr.status);
+
+              // Hide loading spinner
+              $scope.breweryBatchList.loading = false;
+              return;
+            }
+
+            // Populate the userBreweryList with the newly fetched breweries
+            $scope.breweryBatchList.contents = data;
+
+            // Hide loading spinner
+            $scope.breweryBatchList.loading = false;
+
+            // render changes into the DOM
+            $scope.$apply();
+          });
+        }]
+      })
+
+
+      // #/batches/:id
+      .when('/batches/:id', {
+        templateUrl: 'templates/dashboard/show-batch.html',
+        controller: ['$scope', '$location', '$routeParams', '$http', function($scope, $location, $routeParams, $http) {
+
+          // Lookup batch with the specified id from the server
+          $scope.breweryBatch.loading = false;
+          $scope.breweryBatch.errorMsg = '';
+          io.socket.get('/batches/' + $routeParams.id, function onResponse(data, jwr) {
+            if (jwr.error) {
+              $scope.breweryBatch.errorMsg = data||jwr.status;
+              $scope.breweryBatch.loading = false;
+              return;
+            }
+            angular.extend($scope.breweryBatch.properties, data);
+            $scope.breweryBatch.loading = false;
+            $scope.$apply();
+          });
+        }]
+      })
+
+
+      // #/batches/:id/edit
+      .when('/batches/:id/edit', {
+        templateUrl: 'templates/dashboard/edit-batch.html',
+        controller: ['$scope', '$location', '$routeParams', '$http', function($scope, $location, $routeParams, $http) {
+          // Lookup batch with the specified id from the server
+          $scope.breweryBatch.loading = false;
+          $scope.breweryBatch.errorMsg = '';
+          $http.get('/batches/' + $routeParams.id)
+            .then(function onSuccess(res) {
+              // TODO FIX THIS
+              if(localStorage.getItem("reload") != "1"){
+                localStorage.setItem("reload","1");
+                window.location.reload();
+              }
+              else{
+                localStorage.removeItem("reload");
+              }
+              angular.extend($scope.breweryBatch.properties, res.data);
+            })
+            .catch(function onError(res) {
+              $scope.breweryBatch.errorMsg = res.data||res.status;
+            })
+            .finally(function eitherWay() {
+              $scope.breweryBatch.loading = false;
+            });
+        }]
+      })
 
       // #/about
       .when('/about', {
