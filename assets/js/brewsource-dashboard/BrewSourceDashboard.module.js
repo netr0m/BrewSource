@@ -444,6 +444,15 @@ angular.module('BrewSourceDashboard')
             }
             angular.extend($scope.breweryBatch.properties, data);
             $scope.breweryBatch.loading = false;
+            // A VERY temporary fix for issues with Material Design not loading properly through angular
+            // TODO FIX THIS
+            if(localStorage.getItem("reload") != "1"){
+              localStorage.setItem("reload","1");
+              window.location.reload();
+            }
+            else{
+              localStorage.removeItem("reload");
+            }
             $scope.$apply();
           });
         }]
