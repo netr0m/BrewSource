@@ -1,5 +1,5 @@
 [![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/uses-css.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/uses-html.svg)](http://forthebadge.com)
-# [BrewSource](http://brewsource.no) - :sailboat:Sails.js for frontend, :snake:Python for backend
+# [BrewSource](http://brewsource.no) - :sailboat:Sails.js for the application/website, :snake:Python for the Raspberry Pi
 
 BrewSource is an open source, Raspberry Pi-powered monitor for your beer fermentation :beers:. Written in :snake:Python and :sailboat:Sails.js. We'd love help of any kind, whether you'd like to contribute by submitting a bug, or have a request for a feature. You can also contribute with development, but please read the guidelines on [Contribution](#contribution) before you begin.
 
@@ -14,12 +14,10 @@ BrewSource is an open source, Raspberry Pi-powered monitor for your beer ferment
 
 ## Getting Started
 - You will need [NodeJS](https://nodejs.org/en/) and [SailsJS](http://sailsjs.com/get-started) in order to run the Sails-driven part of the application on your machine.
-- You will also need [Python 3.x.x](https://www.python.org/downloads/) for the Raspberry Pi in order to get the temperature-monitoring going. You can see more about that over at the [python branch](https://github.com/mortea15/BrewSource/tree/python)
-- After you've cloned the repository, checkout to the sails branch by typing
-``
-git checkout sails
-``
-- Now, while in the terminal, navigate to your local clone (folder) and type
+- You will also need [Python 3.x.x](https://www.python.org/downloads/) for the Raspberry Pi in order to get the temperature-monitoring and camera stream going. You can see more about that over at the [Raspberry Pi/Python repository](https://github.com/mortea15/BrewSource-RPi)
+- After you've cloned the repository:
+
+- Open a terminal, navigate to your local clone (folder) and type
 ``
 npm install
 ``
@@ -68,9 +66,7 @@ We appreciate feedback of any sort, and it helps us in developing a great servic
 
 **Your enviroment**
 
-*Operative System, NodeJS Version, SailsJS Version, and any other information of relevance (for the Sails-branch)*
-
-*Operative System, Python Version, and any other information of relevance (for the Python-branch)*
+*Operative System, NodeJS Version, SailsJS Version, and any other information of relevance*
 
 ### Feature requests
 We're open for adding new features, please keep in mind that it should be of relevance to this project.
