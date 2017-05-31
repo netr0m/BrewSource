@@ -1,7 +1,9 @@
 [![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/uses-css.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/uses-html.svg)](http://forthebadge.com)
-# [BrewSource](http://brewsource.no) - :sailboat:Sails.js for the application/website, :snake:Python for the Raspberry Pi
+# [BrewSource | Application](http://brewsource.no) - :sailboat:Sails.js for the application/website, :snake:Python for the Raspberry Pi
 
 BrewSource is an open source, Raspberry Pi-powered monitor for your beer fermentation :beers:. Written in :snake:Python and :sailboat:Sails.js. We'd love help of any kind, whether you'd like to contribute by submitting a bug, or have a request for a feature. You can also contribute with development, but please read the guidelines on [Contribution](#contribution) before you begin.
+
+[BrewSource Raspberry Pi Repository](https://github.com/mortea15/BrewSource-RPi)
 
 ## Table of contents
 - [Getting Started](#getting-started)
