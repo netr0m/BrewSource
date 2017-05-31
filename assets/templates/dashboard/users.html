@@ -1,0 +1,86 @@
+<!-- Viewport mobile tag for sensible mobile support -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<h1 class="logo-font slogan amber-text text-darken-3 centralized-text">users</h1>
+
+<!-- Error state -->
+<div ng-show="userList.errorMsg">
+  <h5>Oops!</h5>
+  <p>Looks like an error occurred. Please try again later.</p>
+  <code>
+    {{userList.errorMsg}}
+  </code>
+</div>
+
+<!-- Loading state -->
+<div ng-show="userList.loading">
+  <span class="overlord-loading-spinner fa fa-spinner"></span>
+  <span>Loading users...</span>
+</div>
+
+<!-- Empty state -->
+<div ng-show="userList.contents.length === 0">
+  <!--
+  Note that this empty state will never actually matter because there
+  will always be at least one user (the currently-logged-in admin)
+  -->
+  <span>No users yet.</span>
+</div>
+
+<div id="resultList" class="result-shadow result-container centralized">
+  <!-- List of users -->
+  <ul id="userDatas" class="collection black-text" ng-show="!userList.loading && userList.contents.length > 0">
+    <li id="userProfileData" class="collection-item avatar" ng-repeat="user in userList.contents">
+      <img id="userGravatar"
+           ng-src="{{user.gravatarUrl}}"
+           alt=""
+           class="circle">
+      <!-- User's name and status -->
+      <span id="statusAndName" class="title">
+          <span ng-show="user.isActive" style="background: rgb(66, 183, 42); border-radius: 50%;
+        display: inline-block; height: 8px; width: 8px;"></span>
+          <!-- User not active, display time since last login -->
+          <span style="color: grey; font-size: 12px" ng-show="!user.isActive">{{user.lastLoggedIn | timeAgo}}</span>
+        {{user.name}}
+        </span>
+      <!-- User's email -->
+      <p id="userEmail">
+        {{user.email}}
+      </p>
+      <!-- User ID -->
+      <p id="userIDField" style="color: grey">
+        {{user.id}}
+      </p>
+      <!-- Link to profile -->
+      <a id="userProfileLink" href="#/users/{{user.id}}"
+         class="secondary-content">
+        <i class="material-icons" ng-show="user.admin">supervisor_account</i>
+        <i class="material-icons" ng-show="!user.admin">account_box</i>
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--large " for="userProfileLink">
+        Click to view profile
+      </div>
+    </li>
+  </ul>
+</div>
+
+</div>
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-97439800-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

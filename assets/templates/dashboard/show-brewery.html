@@ -1,0 +1,208 @@
+<!-- Styles -->
+
+<link rel="stylesheet" href="/styles/angular-toastr.css">
+<link rel="stylesheet" href="/styles/importer.css">
+<link rel="stylesheet" href="/styles/styles.css">
+<link rel="stylesheet" href="/styles/third-party/material/material.css">
+<link rel="stylesheet" href="/styles/third-party/material/material.min.css">
+<link rel="stylesheet" href="/styles/third-party/materialize/materialize.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+
+<!-- Square card -->
+<style>
+  .demo-card-square.mdl-card {
+    width: 320px;
+    height: 320px;
+  }
+
+  .demo-card-square > .mdl-card__title {
+    color: #fff;
+    background: url('nope.jpeg') bottom right 15% no-repeat #f44336;
+  }
+</style>
+
+<!-- End of Styles -->
+
+<!-- Simple header with fixed tabs. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <span
+        class="mdl-layout-title centralized">{{userBrewery.properties.name}}, {{userBrewery.properties.location}}</span>
+    </div>
+    <!-- Tabs -->
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+      <a href="#batches" class="mdl-layout__tab is-active">Batches</a>
+      <a href="#brewerySettings" class="mdl-layout__tab">Brewery</a>
+    </div>
+  </header>
+  <main class="mdl-layout__content">
+
+    <!-- B A T C H E S tab -->
+
+    <section class="mdl-layout__tab-panel is-active" id="batches">
+      <div class="page-content">
+
+        <div class="centralized-text">
+
+          <!-- Error state -->
+          <div ng-show="userBrewery.errorMsg">
+            <h5>Oops!</h5>
+            <p>Looks like an error occurred. Please try again later.</p>
+            <code>
+              {{errorMsg}}
+            </code>
+          </div>
+
+          <!-- Loading state -->
+          <div ng-show="userBrewery.loading">
+            <span class="overlord-loading-spinner fa fa-spinner"></span>
+            <span>Loading brewery data...</span>
+          </div>
+          <br/>
+
+          <h1 class="logo-font slogan amber-text text-darken-3">Batches in {{userBrewery.properties.name}}</h1>
+          <br/>
+
+          <!-- Error state -->
+          <div ng-show="breweryBatchList.errorMsg">
+            <h5>Error</h5>
+            <p>Looks like an error occurred. Please try again later.</p>
+            <code>
+              {{breweryBatchList.errorMsg}}
+            </code>
+          </div>
+
+          <!-- Loading state -->
+          <div ng-show="breweryBatchList.loading" class="centralized-text">
+            <span class="overlord-loading-spinner fa fa-spinner"></span>
+            <span>Loading batches...</span>
+          </div>
+
+          <!-- Empty state -->
+          <div ng-show="breweryBatchList.contents.length === 0" class="centralized-text">
+            <span>No batches yet.</span>
+          </div>
+
+          <div id="resultList" class="result-shadow result-container centralized">
+            <!-- List of Batches -->
+            <ul id="batchDatas" class="collection black-text"
+                ng-show="!breweryBatchList.loading && breweryBatchList.contents.length > 0">
+              <li id="batchData" class="collection-item avatar" ng-repeat="batch in breweryBatchList.contents"
+                  ng-show="batch.owner.owner == me.id">
+                <img id="beerIcon"
+                     src="http://icons.iconarchive.com/icons/flat-icons.com/flat/512/Beer-icon.png"
+                     alt=""
+                     class="circle">
+                <!-- Name of Batch -->
+                <span id="batchName" class="title">
+                  {{batch.name}}
+                </span>
+                <!-- Ideal Temp of Batch -->
+                <p id="breweryLocation">
+                  <b>Ideal Temperature:</b> {{batch.idealTemp}}°C
+                </p>
+                <!-- Link to profile -->
+                <a id="batchLink" href="#/batches/{{batch.id}}"
+                   class="secondary-content">
+                  <i class="material-icons">forward</i>
+                </a>
+                <div class="mdl-tooltip mdl-tooltip--large " for="batchLink">
+                  Click to view batch
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <br/>
+          <br/>
+          <div class="centralized-text">
+            <a href="#/batches/new"
+               class="btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text">
+              Create a new batch
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- B R E W E R Y  S E T T I N G S  tab -->
+
+    <section class="mdl-layout__tab-panel" id="brewerySettings">
+      <div class="page-content">
+        <!-- START OF CONTENT -->
+        <div class="centralized-text centralized">
+
+          <br/>
+          <br/>
+          <center>
+            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text">{{userBrewery.properties.name}}</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                {{userBrewery.properties.location}}<br>
+                {{userBrewery.properties.id}}
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                   href="#/breweries/{{userBrewery.properties.id}}/edit">
+                  Edit Brewery
+                </a>
+              </div>
+            </div>
+          </center>
+        </div>
+        <!-- END OF CONTENT -->
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-97439800-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- Scripts -->
+
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<script src="/js/dependencies/sails.io.js"></script>
+<script src="/js/dependencies/angular.1.3.js"></script>
+<script src="/js/dependencies/angular-messages.js"></script>
+<script src="/js/dependencies/angular-route.min.js"></script>
+<script src="/js/dependencies/angular-toastr.js"></script>
+<script src="/js/dependencies/compareTo.module.js"></script>
+<script src="/js/dependencies/jquery.js"></script>
+<script src="/js/dependencies/lodash.min.js"></script>
+<script src="/js/dependencies/moment.js"></script>
+<script src="/js/brewsource-dashboard/BrewSourceDashboard.module.js"></script>
+<script src="/js/brewsource-dashboard/DashboardCtrl.js"></script>
+<script src="/js/brewsource-public/BrewSourcePublic.module.js"></script>
+<script src="/js/brewsource-public/ui-controls/PublicCtrl.js"></script>
+<script src="/js/third-party/material/material.js"></script>
+<script src="/js/third-party/material/material.min.js"></script>
+<script src="/js/third-party/materialize/jquery-2.1.1.min.js"></script>
+<script src="/js/third-party/materialize/materialize.js"></script>
+<script src="/js/third-party/materialize/materialize.min.js"></script>
+
+<!-- End of Scripts -->

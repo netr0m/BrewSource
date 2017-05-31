@@ -1,0 +1,57 @@
+<!-- Viewport mobile tag for sensible mobile support -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- Main Container, defines 800px width -->
+<div class="main-container">
+  <!-- Header and sub-header -->
+  <h1 class="logo-font slogan amber-text text-darken-3 centralized-text">about us</h1>
+</div>
+<br><br>
+
+<div class="aboutcard-container">
+  <div class="card small about-shadow">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="http://i.imgur.com/9kx1Bd9.jpg">
+      <span class="card-title activator white-text">BrewSource Inc.</span>
+    </div>
+    <div class="card-content">
+      <span id="activator_vert" class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+      <div class="mdl-tooltip mdl-tooltip--large " for="activator_vert">
+        Click for more info
+      </div>
+      <p class="black-text">BrewSource lets you monitor your fermentations with ease, using a Raspberry Pi.</p>
+      <p class="black-text">Fast and open-source monitoring through both mobile and desktop</p>
+    </div>
+    <div class="card-action">
+      <a ng-show="me.id == null" href="/">Log in and start brewing!</a>
+      <a ng-show="me.id != null" href="#/breweries">Get your brewgame on!</a>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">BrewSource Inc.<i
+        class="material-icons right">close</i></span><br>
+      <p class="black-text">BrewSource is an Open Source class project at the University of Agder created for learning open source principles, code and more..</p>
+      <p class="black-text">This is an application written in Sails.js for a course at the University of Agder, Open Source.
+        The goal of this project is to provide an easy and low-cost way of managing your fermentation.</p>
+      <p class="black-text">This is done through a Raspberry Pi using a temperature sensor, allowing you to see live temperatures through this website.
+      </p>
+    </div>
+  </div>
+</div>
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-97439800-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

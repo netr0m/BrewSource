@@ -1,0 +1,157 @@
+<head>
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/angular-toastr.css">
+  <link rel="stylesheet" href="/styles/importer.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/styles/third-party/material/material.css">
+  <link rel="stylesheet" href="/styles/third-party/material/material.min.css">
+  <link rel="stylesheet" href="/styles/third-party/materialize/materialize.css">
+  <!--STYLES END-->
+
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!--Added this so the client has access to the csrf tag and it's grabbed first service side on every page -->
+  <script type="text/javascript">
+    window.SAILS_LOCALS = {_csrf: "<%= _csrf %>"};
+  </script>
+
+</head>
+
+<body ng-app="BrewSourceDashboard" ng-controller="DashboardCtrl" ng-cloak>
+
+<!-- Global errors (uiErrorBus) -->
+<div class="ui-error-bus">
+  <li ng-repeat="error in errorBus">
+    <span>{{error.message}}</span>
+    <span ng-click="errorBus.splice(indexOf(error), 1)" class="fa fa-remove"></span>
+  </li>
+</div>
+</div>
+
+
+<form ng-submit="createBatch()" id="new-batch-form" class="centralized-text" name="newbatch">
+  <h1 class="logo-font slogan amber-text text-darken-3 centralized-text">create a new batch</h1>
+
+  <ul ng-show="newBatchForm.topLevelErrorMessage" class="alert alert-danger">
+    <li>
+      <span>{{newBatchForm.topLevelErrorMessage}}</span>
+    </li>
+  </ul>
+
+  <ul ng-show="newBatchForm.validationErrors.length > 0" class="alert alert-danger">
+    <li ng-repeat="error in newBatchForm.validationErrors track by $index">
+      <span>{{error}}</span>
+    </li>
+  </ul>
+
+
+  <div class="row">
+
+    <!-- N A M E -->
+
+    <!-- checking whether the form "newbatch" with the "name" property is both $invalid AND $dirty.  If it is
+    insert the "has-error" class on the input field (i.e. insert a red border)
+    -->
+    <div class="control-group form-group col-md-12"
+         ng-class="{'has-error':newbatch.name.$invalid &&
+                              newbatch.name.$dirty}">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+        <!-- For this input field make it required, and have a min and max length -->
+        <input type="text" class="mdl-textfield__input form-control" name="name" ng-model="newBatchForm.name"
+               id="name" required>
+        <label class="mdl-textfield__label" for="name">Name..</label>
+        <!-- Also, if newbatch.name.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
+        and/or minlength) -->
+        <span class="help-block has-error" ng-if="newbatch.name.$dirty">
+            <span ng-show="newbatch.name.$error.required">Name is required.</span>
+          </span>
+      </div>
+    </div>
+
+    <!-- I D E A L  T E M P E R A T U R E -->
+
+    <div class="control-group form-group col-md-12">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input type="text" class="mdl-textfield__input form-control" name="idealTemp" ng-model="newBatchForm.idealTemp"
+               id="idealTemp" required>
+        <label class="mdl-textfield__label" for="idealTemp">Ideal Temperature..</label>
+      </div>
+    </div>
+    <br/>
+
+    <!-- O W N E R -->
+
+    <div class="control-group form-group col-md-12"
+         ng-class="{'has-error':newbatch.name.$invalid &&
+                              newbatch.name.$dirty}">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+        <!-- For this input field make it required, and have a min and max length -->
+        <input type="text" class="mdl-textfield__input form-control" name="owner" ng-model="newBatchForm.owner"
+               id="owner" required>
+        <label class="mdl-textfield__label" for="owner">Belongs to (id of brewery)..</label>
+        <!-- Also, if newbatch.name.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
+        and/or minlength) -->
+        <span class="help-block has-error" ng-if="newbatch.name.$dirty">
+            <span ng-show="newbatch.name.$error.required">Owner is required.</span>
+          </span>
+      </div>
+    </div>
+
+    <!-- Disable create button until the form has no errors -->
+    <button class="btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text"
+            type="submit" ng-disabled="newbatch.$invalid">
+      <span ng-show="!newBatchForm.loading">Create Batch</span>
+      <span class="overlord-loading-spinner fa fa-spinner" ng-show="newBatchForm.loading"></span>
+      <span ng-show="newBatchForm.loading">Preparing your new batch...</span>
+    </button>
+
+    <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+  </div>
+</form>
+
+
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-97439800-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!--SCRIPTS-->
+<script src="/js/dependencies/sails.io.js"></script>
+<script src="/js/dependencies/angular.1.3.js"></script>
+<script src="/js/dependencies/angular-messages.js"></script>
+<script src="/js/dependencies/angular-route.min.js"></script>
+<script src="/js/dependencies/angular-toastr.js"></script>
+<script src="/js/dependencies/compareTo.module.js"></script>
+<script src="/js/dependencies/jquery.js"></script>
+<script src="/js/dependencies/lodash.min.js"></script>
+<script src="/js/dependencies/moment.js"></script>
+<script src="/js/brewsource-dashboard/BrewSourceDashboard.module.js"></script>
+<script src="/js/brewsource-dashboard/DashboardCtrl.js"></script>
+<script src="/js/brewsource-public/BrewSourcePublic.module.js"></script>
+<script src="/js/brewsource-public/ui-controls/PublicCtrl.js"></script>
+<script src="/js/third-party/material/material.js"></script>
+<script src="/js/third-party/material/material.min.js"></script>
+<script src="/js/third-party/materialize/jquery-2.1.1.min.js"></script>
+<script src="/js/third-party/materialize/materialize.js"></script>
+<script src="/js/third-party/materialize/materialize.min.js"></script>
+<!--SCRIPTS END-->
+</body>
+</html>
+

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<script>
+  window.onload = function() {
+    document.getElementById("email").focus();
+  };
+</script>
+<head>
+
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/angular-toastr.css">
+  <link rel="stylesheet" href="/styles/importer.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/styles/third-party/material/material.css">
+  <link rel="stylesheet" href="/styles/third-party/material/material.min.css">
+  <link rel="stylesheet" href="/styles/third-party/materialize/materialize.css">
+  <!--STYLES END-->
+
+  <!--Added this so the client has access to the csrf tag and it's grabbed first service side on every page -->
+  <script type="text/javascript">
+    window.SAILS_LOCALS = { _csrf: "<%= _csrf %>" };
+  </script>
+
+</head>
+
+<body ng-app="BrewSourcePublic" ng-controller="PublicCtrl" ng-cloak>
+
+<!-- Global errors (uiErrorBus) -->
+<div class="ui-error-bus">
+  <li ng-repeat="error in errorBus"><span>{{error.message}}</span><span ng-click="errorBus.splice(indexOf(error), 1)" class="fa fa-remove"></span></li>
+</div>
+</div>
+
+
+<form ng-submit="submitLoginForm()" id="sign-up-form" class="centralized-text" name="login">
+  <h1 class="logo-font slogan amber-text text-darken-3 centralized-text">sign in</h1>
+
+  <ul ng-show="loginForm.topLevelErrorMessage" class="alert alert-danger">
+    <li>
+      <span>{{loginForm.topLevelErrorMessage}}</span>
+    </li>
+  </ul>
+
+  <ul ng-show="loginForm.validationErrors.length > 0" class="alert alert-danger">
+    <li ng-repeat="error in signupForm.validationErrors track by $index">
+      <span>{{error}}</span>
+    </li>
+  </ul>
+
+
+  <div class="row">
+
+    <!-- E M A I L -->
+
+    <div class="control-group form-group col-md-12"
+         ng-class="{'has-error':login.email.$invalid &&
+                              login.email.$dirty}">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input type="email" class="mdl-textfield__input form-control" id="email" name="email" ng-model="loginForm.email" required>
+        <label class="mdl-textfield__label" for="email">Email..</label>
+        <span class="help-block has-error" ng-if="login.email.$dirty">
+            <span ng-show="login.email.$error.required">Email address is required.</span>
+            <span ng-show="login.email.$error.email">Not a valid email address.</span>
+          </span>
+    </div>
+    </div>
+
+    <!-- P A S S W O R D -->
+
+    <div class="control-group form-group col-md-12"
+         ng-class="{'has-error':login.password.$invalid &&
+                              login.password.$dirty}">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <!-- Added the compareTo directive that compares the passowrds -->
+      <input type="password" class="mdl-textfield__input form-control" name="password" ng-model="loginForm.password" id="password" required >
+        <label class="mdl-textfield__label" for="password">Password..</label>
+        <span class="help-block has-error" ng-if="login.email.$dirty">
+            <span ng-show="login.password.$error.required">Password is required.</span>
+          </span>
+    </div>
+    </div>
+  </div>
+
+  <br/>
+
+  <!-- Disable signup button until the form has no errors -->
+  <button class="btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect amber darken-3 white-text" type="submit" ng-disabled="login.$invalid">
+    <span ng-show="!login.loading">Sign In</span>
+    <span class="brewsource-loading-spinner fa fa-spinner" ng-show="login.loading" ></span>
+    <span ng-show="login.loading">Preparing your new account...</span>
+  </button>
+
+  <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+</form>
+
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-97439800-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<!--SCRIPTS-->
+<script src="/js/dependencies/sails.io.js"></script>
+<script src="/js/dependencies/angular.1.3.js"></script>
+<script src="/js/dependencies/angular-messages.js"></script>
+<script src="/js/dependencies/angular-route.min.js"></script>
+<script src="/js/dependencies/angular-toastr.js"></script>
+<script src="/js/dependencies/compareTo.module.js"></script>
+<script src="/js/dependencies/jquery.js"></script>
+<script src="/js/dependencies/lodash.min.js"></script>
+<script src="/js/dependencies/moment.js"></script>
+<script src="/js/brewsource-dashboard/BrewSourceDashboard.module.js"></script>
+<script src="/js/brewsource-dashboard/DashboardCtrl.js"></script>
+<script src="/js/brewsource-public/BrewSourcePublic.module.js"></script>
+<script src="/js/brewsource-public/ui-controls/PublicCtrl.js"></script>
+<script src="/js/third-party/material/material.js"></script>
+<script src="/js/third-party/material/material.min.js"></script>
+<script src="/js/third-party/materialize/jquery-2.1.1.min.js"></script>
+<script src="/js/third-party/materialize/materialize.js"></script>
+<script src="/js/third-party/materialize/materialize.min.js"></script>
+<!--SCRIPTS END-->
+</body>
+</html>
+
