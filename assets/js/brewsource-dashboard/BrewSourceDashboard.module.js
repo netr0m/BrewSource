@@ -487,6 +487,58 @@ angular.module('BrewSourceDashboard')
         }]
       })
 
+      // #/batchTemps
+      .when('/batchTemps', {
+        templateUrl: '',
+        controller: ['$scope', '$location', '$http', function($scope, $location, $http) {
+
+          // Send request to Sails to fetch list of breweries.
+          $scope.batchTempList.loading = true;
+          $scope.batchTempList.errorMsg = '';
+          io.socket.get('/batchTemps', function(data, jwr) {
+            if (jwr.error) {
+              // Display generic error, since there are no expected errors.
+              $scope.batchTempList.errorMsg = 'An unexpected error occurred: ' + (data||jwr.status);
+
+              // Hide loading spinner
+              $scope.batchTempList.loading = false;
+              return;
+            }
+
+            // Populate the batchTempList with the newly fetched temperatures
+            $scope.batchTempList.contents = data;
+
+            // Hide loading spinner
+            $scope.batchTempList.loading = false;
+
+            // render changes into the DOM
+            $scope.$apply();
+          });
+        }]
+      })
+
+
+      // #/batchTemps/:id
+      .when('/batchTemps/:id', {
+        templateUrl: '',
+        controller: ['$scope', '$location', '$routeParams', '$http', function($scope, $location, $routeParams, $http) {
+
+          // Lookup batch with the specified id from the server
+          $scope.batchTemp.loading = false;
+          $scope.batchTemp.errorMsg = '';
+          io.socket.get('/batchTemps/' + $routeParams.id, function onResponse(data, jwr) {
+            if (jwr.error) {
+              $scope.batchTemp.errorMsg = data||jwr.status;
+              $scope.batchTemp.loading = false;
+              return;
+            }
+            angular.extend($scope.batchTemp.properties, data);
+            $scope.batchTemp.loading = false;
+            $scope.$apply();
+          });
+        }]
+      })
+
       // #/about
       .when('/about', {
         templateUrl: 'templates/public/about.html'
