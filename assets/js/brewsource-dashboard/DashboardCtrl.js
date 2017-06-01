@@ -37,6 +37,14 @@ angular.module('BrewSourceDashboard').controller('DashboardCtrl', ['$scope', '$h
     loading: false
   };
 
+  // Batch temperature attributes etc.
+  $scope.batchTemp = {
+    properties: {},
+    errorMsg: '',
+    saving: false,
+    loading: false
+  };
+
   /**
    * Lists of objects
    */
@@ -57,6 +65,13 @@ angular.module('BrewSourceDashboard').controller('DashboardCtrl', ['$scope', '$h
 
   // List of batches
   $scope.breweryBatchList = {
+    loading: false,
+    errorMsg: '',
+    contents: []
+  };
+
+  // List of temperatures
+  $scope.batchTempList = {
     loading: false,
     errorMsg: '',
     contents: []
