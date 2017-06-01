@@ -98,7 +98,16 @@ module.exports.routes = {
   'PUT /batches/:id': 'BatchController.update',
 
   // Destroy a batch
-  'DELETE /batches/:id': 'BatchController.destroy'
+  'DELETE /batches/:id': 'BatchController.destroy',
 
+  /**
+   * BreweryTemp/BatchTemp Management
+   */
+
+  // List batches
+  'GET /batchTemps': 'BreweryTempController.find',
+
+  // View a specific batch
+  'GET /batchTemps/:id': 'BreweryTempController.findOne'
 
 };
