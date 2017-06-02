@@ -534,7 +534,7 @@ angular.module('BrewSourceDashboard').controller('DashboardCtrl', ['$scope', '$h
     return $http.put('/batches/' + batchId, {
       name: $scope.breweryBatch.properties.name,
       idealTemp: $scope.breweryBatch.properties.idealTemp,
-      owner: $scope.breweryBatch.properties.id
+      owner: $scope.breweryBatch.properties.owner
     })
       .then(function onSuccess(sailsResponse) {
         // Everything is OK.
