@@ -19,7 +19,7 @@
 
   .demo-card-square > .mdl-card__title {
     color: #fff;
-    background: url('nope.jpeg') bottom right 15% no-repeat #f44336;
+    background: url('') bottom right 15% no-repeat #f44336;
   }
 </style>
 
@@ -42,54 +42,81 @@
     </div>
   </header>
   <main class="mdl-layout__content">
+
     <!-- 2 4  H O U R  G R A P H  tab -->
     <section class="mdl-layout__tab-panel is-active" id="dayGraph">
       <div class="page-content">
         <!-- START OF CONTENT -->
+        <div class="centralized-text centralized">
+          <center>
 
-        <div class="centralized-text">
+            <!-- Error state -->
+            <div ng-show="breweryBatch.errorMsg">
+              <h5>Oops!</h5>
+              <p>Looks like an error occurred. Please try again later.</p>
+              <code>
+                {{errorMsg}}
+              </code>
+            </div>
 
-          <!-- Error state -->
-          <div ng-show="breweryBatch.errorMsg">
-            <h5>Oops!</h5>
-            <p>Looks like an error occurred. Please try again later.</p>
-            <code>
-              {{errorMsg}}
-            </code>
-          </div>
+            <!-- Loading state -->
+            <div ng-show="breweryBatch.loading">
+              <span class="overlord-loading-spinner fa fa-spinner"></span>
+              <span>Loading batch data...</span>
+            </div>
 
-          <!-- Loading state -->
-          <div ng-show="breweryBatch.loading">
-            <span class="overlord-loading-spinner fa fa-spinner"></span>
-            <span>Loading batch data...</span>
-          </div>
+            <!-- Error state -->
+            <div ng-show="batchTempList.errorMsg">
+              <h5>Oops!</h5>
+              <p>Looks like an error occurred. Please try again later.</p>
+              <code>
+                {{errorMsg}}
+              </code>
+            </div>
 
-          <p>24 Hour Temperature Graph</p>
+            <!-- Loading state -->
+            <div ng-show="batchTempList.loading">
+              <span class="overlord-loading-spinner fa fa-spinner"></span>
+              <span>Loading batch temperatures...</span>
+            </div>
+            <p>24 Hour Temperature Graph</p>
 
-          <div id="dayChart_div" style="width: 100%; height: 500px;"></div>
+            <div id="day_div" style="width: 100%; height: 500px;"></div>
 
-          <!-- Charts Script -->
-          <!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-          <script type="text/javascript">
-            google.charts.load('current', {'packages': ['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
-            function drawChart() {
-              var data = google.visualization.arrayToDataTable([
-                  ['Time', 'Temp C°'],
-                for(breweryTemp in breweryTempList.contents) {
-                  ['{{breweryTemp.createdAt}}', breweryTemp.temperature],}
-            ]);
-              var options = {
-                title: 'Temperature measurements',
-                hAxis: {title: 'Time', titleTextStyle: {color: '#333'}},
-                vAxis: {}
-              };
-              var chart = new google.visualization.AreaChart(document.getElementById('dayChart_div'));
-              chart.draw(data, options);
-            }
-          </script>-->
-          <!-- End of Charts Script -->
+            <!-- TODO: Limit this to only get the last 144 entries in the Array (entries for the past 24 hours) -->
 
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+              google.charts.load('current', {'packages': ['corechart']});
+              google.charts.setOnLoadCallback(drawChart);
+
+              function drawChart() {
+
+                var chartData = [
+                  ['Time', 'Temp C°']
+                ];
+
+                $scope.batchTempList.contents.forEach(function (batchTemp) {
+                  chartData.push(
+                    [new Date(batchTemp.createdAt), batchTemp.temperature]
+                  );
+                });
+
+                var data = google.visualization.arrayToDataTable(chartData);
+
+                var options = {
+                  title: 'Temperature Measurements',
+                  hAxis: {title: 'Time', titleTextStyle: {color: '#333'}},
+                  vAxis: {}
+                };
+
+                var chart = new google.visualization.AreaChart(document.getElementById('day_div'));
+                chart.draw(data, options);
+              }
+
+            </script>
+
+          </center>
         </div>
         <!-- END OF CONTENT -->
       </div>
@@ -118,31 +145,59 @@
             <span>Loading batch data...</span>
           </div>
 
+          <!-- Error state -->
+          <div ng-show="batchTempList.errorMsg">
+            <h5>Oops!</h5>
+            <p>Looks like an error occurred. Please try again later.</p>
+            <code>
+              {{errorMsg}}
+            </code>
+          </div>
+
+          <!-- Loading state -->
+          <div ng-show="batchTempList.loading">
+            <span class="overlord-loading-spinner fa fa-spinner"></span>
+            <span>Loading batch temperatures...</span>
+          </div>
+
           <p>7 Day Temperature Graph</p>
 
-          <div id="weekChart_div" style="width: 100%; height: 500px;"></div>
+          <div id="week_div" style="width: 100%; height: 500px;"></div>
 
-          <!-- Charts Script -->
-          <!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+          <!-- TODO: Limit this to only get the last 1008 entries in the Array (entries for the past 7 days) -->
+
+          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
           <script type="text/javascript">
             google.charts.load('current', {'packages': ['corechart']});
             google.charts.setOnLoadCallback(drawChart);
+
             function drawChart() {
-              var data = google.visualization.arrayToDataTable([
-                  ['Time', 'Temp C°'],
-                for(breweryTemp in breweryTempList.contents) {
-                  ['{{breweryTemp.createdAt}}', breweryTemp.temperature],}
-            ]);
+
+              var chartData = [
+                ['Time', 'Temp C°']
+              ];
+
+              $scope.batchTempList.contents.forEach(function (batchTemp) {
+                chartData.push(
+                  [new Date(batchTemp.createdAt), batchTemp.temperature]
+                );
+              });
+
+              var data = google.visualization.arrayToDataTable(chartData);
+
               var options = {
-                title: 'Temperature measurements',
-                hAxis: {title: 'Time', titleTextStyle: {color: '#333'}},
+                title: 'Temperature Measurements',
+                hAxis: {title: 'Time/Date', titleTextStyle: {color: '#333'}},
                 vAxis: {}
               };
-              var chart = new google.visualization.AreaChart(document.getElementById('weekChart_div'));
+
+              var chart = new google.visualization.AreaChart(document.getElementById('week_div'));
               chart.draw(data, options);
             }
-          </script>-->
-          <!-- End of Charts Script -->
+
+          </script>
+
+          </center>
 
         </div>
         <!-- END OF CONTENT -->
@@ -154,9 +209,14 @@
     <section class="mdl-layout__tab-panel" id="liveStream">
       <div class="page-content">
         <!-- START OF CONTENT -->
-        <div class="centralized-text">
-
-          <p>Livestream here m8</p>
+        <div class="centralized-text main-container">
+          <br>
+          <br>
+          <!-- TODO This is just a temporary fix, with livestreaming through YouTube -->
+          <!-- A more permanent and perhaps stable method should be considered in the future -->
+          <iframe width="560" height="315"
+                  src="https://www.youtube.com/embed/x13pP-YR83g?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0"
+                  allowfullscreen></iframe>
 
         </div>
         <!-- END OF CONTENT -->
@@ -171,23 +231,28 @@
         <div class="centralized-text">
           <br/>
           <br/>
+
+          <script>
+            $('#currTemp').val(breweryBatch.properties.temperatures.slice((breweryBatch.properties.temperatures.length - 1), breweryBatch.properties.temperatures.length));
+          </script>
+
           <center>
-          <div class="demo-card-square mdl-card mdl-shadow--2dp">
-            <div class="mdl-card__title mdl-card--expand">
-              <h2 class="mdl-card__title-text">{{breweryBatch.properties.name}}</h2>
+            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text">{{breweryBatch.properties.name}}</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <b>Ideal Temperature:</b> {{breweryBatch.properties.idealTemp}}°C<br>
+                <b>Current Temperature: </b></span><br>
+                {{breweryBatch.properties.createdAt}}
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                   href="#/batches/{{breweryBatch.properties.id}}/edit">
+                  Edit Batch
+                </a>
+              </div>
             </div>
-            <div class="mdl-card__supporting-text">
-              <b>Ideal Temperature:</b> {{breweryBatch.properties.idealTemp}}°C<br>
-              <b>Current Temperature: </b> 00°C<br>
-              {{breweryBatch.properties.createdAt}}
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                 href="#/batches/{{breweryBatch.properties.id}}/edit">
-                Edit Batch
-              </a>
-            </div>
-          </div>
           </center>
 
         </div>
@@ -239,3 +304,4 @@
 <script src="/js/third-party/materialize/materialize.min.js"></script>
 
 <!-- End of Scripts -->
+
