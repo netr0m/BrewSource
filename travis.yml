@@ -18,17 +18,10 @@ node_js:
   - "6"
   - "8"
 
-  sudo: required
-
-  before_install:
-    - npm install -g
 
 before_script:
   - npm install
 
 script:
+  - node app.js
   - npm test
-
-notifications:
-  email:
-    - mkaa22@gmail.com

@@ -42,7 +42,7 @@
   "scripts": {
     "start": "node app.js",
     "debug": "node debug app.js",
-    "test": "mocha --timeout 10000"
+    "test": "node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/integration/**/*.test.js"
   },
   "main": "app.js",
   "repository": {
