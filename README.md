@@ -32,9 +32,6 @@ npm install
 ## Documentation
 https://github.com/mortea15/BrewSource/wiki
 
-## Features 
-Coming soon
-
 ## Contribution
 We would love your help in the development of BrewSource. Please follow our guidelines on [Contribution](#contribution) on how to report bugs and request features you'd like to see, in addition to how you can contribute with development.
 By following these guidelines, we make sure that communication is efficient and understandable, which hopefully will help us improve the project.
