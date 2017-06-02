@@ -1,4 +1,8 @@
-[![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/uses-css.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/uses-html.svg)](http://forthebadge.com)
+[![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl.svg?v=103)](https://opensource.org/licenses/GPL-3.0/)
+[![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)](http://forthebadge.com)
+[![forthebadge](http://forthebadge.com/images/badges/uses-css.svg)](http://forthebadge.com)
+[![forthebadge](http://forthebadge.com/images/badges/uses-html.svg)](http://forthebadge.com)
 # [BrewSource | Application](http://brewsource.no) - :sailboat:Sails.js for the application/website, :snake:Python for the Raspberry Pi
 
 BrewSource is an open source, Raspberry Pi-powered monitor for your beer fermentation :beers:. Written in :snake:Python and :sailboat:Sails.js. We'd love help of any kind, whether you'd like to contribute by submitting a bug, or have a request for a feature. You can also contribute with development, but please read the guidelines on [Contribution](#contribution) before you begin.
