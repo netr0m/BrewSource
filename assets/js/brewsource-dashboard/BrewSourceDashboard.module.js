@@ -443,6 +443,30 @@ angular.module('BrewSourceDashboard')
               return;
             }
             angular.extend($scope.breweryBatch.properties, data);
+
+            // Send request to Sails to fetch list of batchtemps.
+            $scope.batchTempList.loading = true;
+            $scope.batchTempList.errorMsg = '';
+            io.socket.get('/batchTemps', function(tempData, jwr) {
+              if (jwr.error) {
+                // Display generic error, since there are no expected errors.
+                $scope.batchTempList.errorMsg = 'An unexpected error occurred: ' + (tempData||jwr.status);
+
+                // Hide loading spinner
+                $scope.batchTempList.loading = false;
+                return;
+              }
+
+              // Populate the batchTempList with the newly fetched temperatures
+              $scope.batchTempList.contents = tempData;
+
+              // Hide loading spinner
+              $scope.batchTempList.loading = false;
+
+              // render changes into the DOM
+              $scope.$apply();
+            });
+
             $scope.breweryBatch.loading = false;
             // A VERY temporary fix for issues with Material Design not loading properly through angular
             // TODO FIX THIS
@@ -484,6 +508,58 @@ angular.module('BrewSourceDashboard')
             .finally(function eitherWay() {
               $scope.breweryBatch.loading = false;
             });
+        }]
+      })
+
+      // #/batchTemps
+      .when('/batchTemps', {
+        templateUrl: '',
+        controller: ['$scope', '$location', '$http', function($scope, $location, $http) {
+
+          // Send request to Sails to fetch list of batchtemps.
+          $scope.batchTempList.loading = true;
+          $scope.batchTempList.errorMsg = '';
+          io.socket.get('/batchTemps', function(data, jwr) {
+            if (jwr.error) {
+              // Display generic error, since there are no expected errors.
+              $scope.batchTempList.errorMsg = 'An unexpected error occurred: ' + (data||jwr.status);
+
+              // Hide loading spinner
+              $scope.batchTempList.loading = false;
+              return;
+            }
+
+            // Populate the batchTempList with the newly fetched temperatures
+            $scope.batchTempList.contents = data;
+
+            // Hide loading spinner
+            $scope.batchTempList.loading = false;
+
+            // render changes into the DOM
+            $scope.$apply();
+          });
+        }]
+      })
+
+
+      // #/batchTemps/:id
+      .when('/batchTemps/:id', {
+        templateUrl: '',
+        controller: ['$scope', '$location', '$routeParams', '$http', function($scope, $location, $routeParams, $http) {
+
+          // Lookup batch with the specified id from the server
+          $scope.batchTemp.loading = false;
+          $scope.batchTemp.errorMsg = '';
+          io.socket.get('/batchTemps/' + $routeParams.id, function onResponse(data, jwr) {
+            if (jwr.error) {
+              $scope.batchTemp.errorMsg = data||jwr.status;
+              $scope.batchTemp.loading = false;
+              return;
+            }
+            angular.extend($scope.batchTemp.properties, data);
+            $scope.batchTemp.loading = false;
+            $scope.$apply();
+          });
         }]
       })
 
