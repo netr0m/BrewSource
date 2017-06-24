@@ -54,10 +54,14 @@ module.exports = {
       type: 'string'
     },
 
+    lastIP: {
+      type: 'string'
+    },
+
     // The breweries associated with this user
     breweries: {
       collection: 'brewery',
       via: 'owner'
-    }
+    },
   }
 };
