@@ -82,6 +82,7 @@ module.exports = {
         gravatarUrl: user.gravatarUrl,
         admin: user.admin,
         lastLoggedIn: user.lastLoggedIn,
+        lastIP: user.lastIP,
         breweries: user.breweries,
 
 
@@ -137,6 +138,7 @@ module.exports = {
           gravatarUrl: user.gravatarUrl,
           admin: user.admin,
           lastLoggedIn: user.lastLoggedIn,
+          lastIP: user.lastIP,
           breweries: user.breweries,
 
           // Add a property, "msUntilInactive", so the front-end knows
@@ -368,12 +370,14 @@ module.exports = {
 
           // The user is "logging in", so update the "lastLoggedIn" attribute.
           User.update(user.id, {
-            lastLoggedIn: new Date()
+            lastLoggedIn: new Date(),
+            lastIP: req.ip
           }, function(err) {
             if (err) return res.negotiate(err);
 
             // Store the user id in the user session ("req.session.me")
             req.session.me = user.id;
+            console.log(req.ip);
 
             // All done - Notify the client that everything worked.
             return res.ok();
@@ -452,7 +456,8 @@ module.exports = {
               email: req.param('email'),
               encryptedPassword: encryptedPassword,
               lastLoggedIn: new Date(),
-              gravatarUrl: gravatarUrl
+              gravatarUrl: gravatarUrl,
+              lastIP: req.ip
             }, function userCreated(err, newUser) {
               if (err) {
 
