@@ -31,20 +31,22 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
-    "machinepack-gravatar": "^1.2.0",
+    "machinepack-gravatar": "^2.0.0",
     "machinepack-passwords": "^2.3.0",
     "rc": "1.0.1",
     "sails": "~0.12.11",
     "sails-disk": "~0.10.9",
     "sails-mongo": "^0.12.2",
-    "sails-mysql": "^0.11.5"
+    "sails-mysql": "^0.11.5",
+    "snyk": "^1.256.0"
   },
   "scripts": {
     "start": "node app.js",
     "debug": "node debug app.js",
-    "test": "node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/integration/**/*.test.js"
+    "test": "node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/integration/**/*.test.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
-  "main": "app.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/mortea15/Brewsource.git"
@@ -56,5 +58,6 @@
     "sails-hook-autoreload": "^0.11.2",
     "supertest": "^3.0.0",
     "mocha": "3.2.0"
-  }
+  },
+  "snyk": true
 }
