@@ -1,0 +1,28 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - grunt-contrib-less > lodash:
+        patched: '2020-05-07T07:15:55.710Z'
+    - grunt-contrib-uglify > lodash:
+        patched: '2020-05-07T07:15:55.710Z'
+    - grunt > grunt-legacy-log > lodash:
+        patched: '2020-05-07T07:15:55.710Z'
+    - sails > grunt-contrib-less > lodash:
+        patched: '2020-05-07T07:15:55.710Z'
+    - sails > grunt-contrib-uglify > lodash:
+        patched: '2020-05-07T07:15:55.710Z'
+    - sails-mongo > async > lodash:
+        patched: '2020-05-07T07:15:55.710Z'
+    - sails > grunt > grunt-legacy-log > lodash:
+        patched: '2020-05-07T07:15:55.710Z'
+    - grunt-contrib-watch > gaze > globule > lodash:
+        patched: '2020-05-07T07:15:55.710Z'
+    - sails > sails-generate > sails-generate-generator > lodash:
+        patched: '2020-05-07T07:15:55.710Z'
+    - sails > skipper > async > lodash:
+        patched: '2020-05-07T07:15:55.710Z'
+    - sails > grunt-contrib-watch > gaze > globule > lodash:
+        patched: '2020-05-07T07:15:55.710Z'
