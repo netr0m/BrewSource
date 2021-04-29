@@ -16,7 +16,7 @@
     "url": "https://github.com/mortea15/BrewSource/issues"
   },
   "dependencies": {
-    "connect-redis": "^3.3.0",
+    "connect-redis": "^4.0.0",
     "ejs": "2.3.4",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.0.0",
@@ -36,7 +36,7 @@
     "rc": "1.0.1",
     "sails": "~0.12.11",
     "sails-disk": "~0.10.9",
-    "sails-mongo": "^0.12.2",
+    "sails-mongo": "^1.0.0",
     "sails-mysql": "^0.11.5"
   },
   "scripts": {
